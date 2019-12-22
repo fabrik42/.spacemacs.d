@@ -1,0 +1,5 @@
+* My Emacs Setup
+
+This is my Emacs/Spacemacs configuration.
+
+You can also find the annotated source code on https://emacs.christianbaeuerlein.com, which is the recommended way of reading these configuration files.
