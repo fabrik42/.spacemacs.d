@@ -1,0 +1,3 @@
+/.spacemacs.env
+/netlify.toml
+/.netlify/*

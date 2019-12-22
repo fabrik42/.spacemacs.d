@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Insert basic header
+# key: hh
+# --
+#+TITLE: $1
+#+CATEGORY: Project
+#+SETUPFILE: /Users/fabrik42/org/_ioki_config.org
+
+* $0

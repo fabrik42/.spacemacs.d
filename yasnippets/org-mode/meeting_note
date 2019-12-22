@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Meeting Meeting
+# key: mm
+# --
+* Meeting `(format-time-string "%Y-%m-%d")` [/]
+- [ ] $0

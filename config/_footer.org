@@ -1,0 +1,27 @@
+-----
+
+#+NAME: org-source-link
+#+BEGIN_SRC emacs-lisp :exports results :tangle no :results value html
+(let* (
+       (path (file-name-nondirectory (buffer-file-name)))
+)
+    (format "<p><a href=\"./%s\">%s</a></p>" path "View Org Source")
+)
+#+END_SRC
+
+#+RESULTS: org-source-link
+#+BEGIN_EXPORT html
+<p><a href="./_footer.org">View Org Source</a></p>
+#+END_EXPORT
+
+#+NAME: back-to-index-link
+#+BEGIN_SRC emacs-lisp :exports results :tangle no :results value html
+
+(let* (
+       (path (file-name-nondirectory (buffer-file-name)))
+)
+  (if (string-equal path "index.org")
+      ""
+    (format "<p><a href=\"./index.html\">%s</a></p>" "Back to Index"))
+)
+#+END_SRC

@@ -1,0 +1,291 @@
+#+TITLE: General configuration
+#+PROPERTY: header-args+ :comments both
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "my-general-config.el"
+#+SETUPFILE: ./_setup.org
+
+These are my settings that are called in =dotspacemacs/user-config=. This function is called at the very end of Spacemacs initialization after layers configuration.
+
+* General
+Hitting TAB always just indents the current line.
+
+#+BEGIN_SRC emacs-lisp
+(setq tab-always-indent t)
+#+END_SRC
+
+Only one auth source for magit & co.
+
+#+BEGIN_SRC emacs-lisp
+(setq auth-sources '("~/.netrc"))
+#+END_SRC
+
+Utf-8
+
+#+BEGIN_SRC emacs-lisp
+(prefer-coding-system 'utf-8)
+#+END_SRC
+
+Enable line wrapping
+
+#+BEGIN_SRC emacs-lisp
+(setq truncate-lines nil)
+#+END_SRC
+* Appearance
+Clean up spaceline contents.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'spaceline-segments
+  (spaceline-toggle-minor-modes-off)
+  (spaceline-toggle-buffer-size-off))
+#+END_SRC
+
+* Major Mode Settings
+** Ruby
+Don't automatically insert the magic encoding comment.
+
+#+BEGIN_SRC emacs-lisp
+(setq ruby-insert-encoding-magic-comment nil)
+#+END_SRC
+
+Keybinding to toggle between new and old hash syntax.
+
+#+BEGIN_SRC emacs-lisp
+(evil-leader/set-key
+  "xrh" 'ruby-toggle-hash-syntax)
+#+END_SRC
+
+Underscore should be a word delimiter in slim.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'slim-mode-hook #'(lambda () (modify-syntax-entry ?_ "_")))
+#+END_SRC
+** Elixir
+Better formatting for test output buffers.
+
+#+BEGIN_SRC emacs-lisp
+(setq alchemist-test-truncate-lines nil)
+#+END_SRC
+
+Call elixir-format before save.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'elixir-mode-hook
+          (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
+#+END_SRC
+** Go
+Set tab width to 4.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default tab-width 4)
+#+END_SRC
+
+Call go-format before save.
+
+#+BEGIN_SRC emacs-lisp
+(setq go-format-before-save t)
+#+END_SRC
+
+Enable flycheck for Go mode.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'go-mode-hook
+          (lambda () (flycheck-mode 1)))
+#+END_SRC
+** Web Mode
+Intendation settings
+
+#+BEGIN_SRC emacs-lisp
+(setq web-mode-css-indent-offset 2)
+(setq js2-basic-offset 2)
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
+(setq css-indent-offset 2)
+(setq-default js2-basic-offset 2
+              js-indent-level 2)
+
+#+END_SRC
+** JavaScript
+Allow =.dir-locals.el= files to set prettier-related settings.
+
+#+BEGIN_SRC emacs-lisp
+(put 'prettier-js-args 'safe-local-variable 'listp)
+(put 'prettier-js-command 'safe-local-variable 'stringp)
+#+END_SRC
+
+Setup [[https://github.com/abicky/nodejs-repl.el][nodejs-repl.el]] keybindings.
+#+BEGIN_SRC emacs-lisp
+(spacemacs/set-leader-keys-for-major-mode 'js2-mode "ne" 'nodejs-repl-send-last-expression)
+(spacemacs/set-leader-keys-for-major-mode 'js2-mode "nl" 'nodejs-repl-send-line)
+(spacemacs/set-leader-keys-for-major-mode 'js2-mode "nr" 'nodejs-repl-send-region)
+(spacemacs/set-leader-keys-for-major-mode 'js2-mode "nb" 'nodejs-repl-send-buffer)
+(spacemacs/set-leader-keys-for-major-mode 'js2-mode "nf" 'nodejs-repl-load-file)
+(spacemacs/set-leader-keys-for-major-mode 'js2-mode "n'" 'nodejs-repl-switch-to-repl)
+(spacemacs/set-leader-keys-for-major-mode 'js2-mode "ns" 'nodejs-repl-switch-to-repl)
+#+END_SRC
+** SQL
+The =sqlfmt= does not work very well with Postgres and is also outdated.
+This uses [[https://github.com/darold/pgFormatter][pgFormatter]] instead, installed with =brew install pgformatter=.
+
+#+BEGIN_SRC emacs-lisp
+(setq sqlfmt-executable "pg_format")
+(setq sqlfmt-options '())
+#+END_SRC
+* Keybindings
+** Movements
+Make evil-mode up/down operate in screen lines instead of logical lines.
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-motion-state-map "j" 'evil-next-visual-line)
+(define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+#+END_SRC
+
+Also in visual mode...
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-visual-state-map "j" 'evil-next-visual-line)
+(define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+#+END_SRC
+
+Move line under cursor with =C-j/k=.
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-normal-state-map (kbd "C-j") 'move-text-down)
+(define-key evil-normal-state-map (kbd "C-k") 'move-text-up)
+#+END_SRC
+
+Pressing =H= in any edit mode moves the cursor to the first non-blank character.
+
+#+BEGIN_SRC emacs-lisp
+(evil-global-set-key 'normal "H" 'evil-first-non-blank)
+(evil-global-set-key 'visual "H" 'evil-first-non-blank)
+(evil-global-set-key 'motion "H" 'evil-first-non-blank)
+#+END_SRC
+
+Pressing =L= in any edit mode moves the cursor to the end of line.
+
+#+BEGIN_SRC emacs-lisp
+(evil-global-set-key 'normal "L" (lambda () (interactive) (evil-end-of-line)))
+(evil-global-set-key 'visual "L" (lambda () (interactive) (evil-end-of-line)))
+(evil-global-set-key 'motion "L" (lambda () (interactive) (evil-end-of-line)))
+#+END_SRC
+
+Type =g l= to get a fast home row friendly jump menu to go to a visible line.
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-motion-state-map "gl" 'evil-avy-goto-line)
+(define-key evil-normal-state-map "gl" 'evil-avy-goto-line)
+#+END_SRC
+
+Type =g o <char> <char>= to get a fast home row friendly jump menu to go to a visible word that starts with these characters.
+
+#+BEGIN_SRC emacs-lisp
+(define-key evil-motion-state-map "go" 'evil-avy-goto-char-2)
+(define-key evil-normal-state-map "go" 'evil-avy-goto-char-2)
+#+END_SRC
+** Macros
+
+Type =Q= to execute the macro recorded to =q.=
+
+#+BEGIN_SRC emacs-lisp
+(evil-global-set-key 'normal (kbd "Q") (lambda () (interactive) (evil-execute-macro 1 "@q")))
+#+END_SRC
+** Dired
+In =dired=, move to parent directory with =h= and open thing under cursor with =l=.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'dired
+  (evil-define-key 'normal dired-mode-map
+    "h" 'dired-up-directory
+    "l" 'dired-find-file
+    )
+  )
+#+END_SRC
+** Umlauts
+Make Umlauts work like in the rest of MacOS.
+
+#+BEGIN_SRC emacs-lisp
+(global-unset-key (kbd "M-s"))
+(global-set-key (kbd "M-s")
+                (lambda ()
+                  "Insert ß."
+                  (interactive)
+                  (insert "ß")))
+(global-unset-key (kbd "M-u"))
+(global-set-key (kbd "M-u a")
+                (lambda ()
+                  "Insert ä."
+                  (interactive)
+                  (insert "ä")))
+(global-set-key (kbd "M-u A")
+                (lambda ()
+                  "Insert Ä."
+                  (interactive)
+                  (insert "Ä")))
+(global-set-key (kbd "M-u o")
+                (lambda ()
+                  "Insert ö."
+                  (interactive)
+                  (insert "ö")))
+(global-set-key (kbd "M-u O")
+                (lambda ()
+                  "Insert Ö."
+                  (interactive)
+                  (insert "Ö")))
+(global-set-key (kbd "M-u u")
+                (lambda ()
+                  "Insert ü."
+                  (interactive)
+                  (insert "ü")))
+(global-set-key (kbd "M-u U")
+                (lambda ()
+                  "Insert Ü."
+                  (interactive)
+                  (insert "Ü")))
+#+END_SRC
+** Misc
+Set hippie expand from M-/ to ctrl-space.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-SPC") 'hippie-expand)
+#+END_SRC
+* Emojis
+Overwrite emoji settings.
+
+#+BEGIN_SRC emacs-lisp
+(defun --set-emoji-font (frame)
+  "Adjust the font settings of FRAME so Emacs can display emoji properly."
+  (if (eq system-type 'darwin)
+      ;; For NS/Cocoa
+      (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji" :size 10) frame 'prepend)
+    ;; For Linux
+    (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
+
+;; For when Emacs is started in GUI mode:
+(--set-emoji-font nil)
+;; Hook for when a frame is created with emacsclient
+;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
+(add-hook 'after-make-frame-functions '--set-emoji-font)
+(setq company-emoji-insert-unicode t)
+#+END_SRC
+* Custom Functions
+Helper functions that I call directly with =SPC SPC=.
+** Switch between Rails i18n files
+This function switches between the German and the English translation file in a Rails project. Especially handy, if the project has a lot of files per language.
+
+#+BEGIN_SRC emacs-lisp
+(defun switch-rails-i18n-file()
+  "Switches to the i18n file in the other language"
+  (interactive)
+  (if (search "/de/" buffer-file-name)
+    (find-file (replace-regexp-in-string "/de/" "/en/" (buffer-file-name)))
+    (find-file (replace-regexp-in-string "/en/" "/de/" (buffer-file-name))))
+  )
+#+END_SRC
+* Finalization
+In the end, satisfy the Spacemacs loading mechanism.
+
+#+BEGIN_SRC emacs-lisp
+(provide 'my-general-config)
+#+END_SRC
+
+#+INCLUDE: "./_footer.org"

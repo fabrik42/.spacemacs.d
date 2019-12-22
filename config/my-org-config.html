@@ -1,0 +1,1184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-08-05 Mon 14:44 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Org mode configuration</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Christian Bäuerlein" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Org mode configuration</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4f66a33">1. Task States</a>
+<ul>
+<li><a href="#org171a40e">1.1. Logging Task State change</a></li>
+</ul>
+</li>
+<li><a href="#org3d6ce5e">2. Environment</a></li>
+<li><a href="#org5195473">3. Initialization</a></li>
+<li><a href="#org9edd6b0">4. Quick Access</a></li>
+<li><a href="#org5bfdf4e">5. Files</a></li>
+<li><a href="#org4e2d7ec">6. Capture</a></li>
+<li><a href="#org2434ad7">7. Agenda</a>
+<ul>
+<li><a href="#org27f817c">7.1. Custom Agenda Views</a></li>
+</ul>
+</li>
+<li><a href="#org2041508">8. Appearance</a></li>
+<li><a href="#org1146e43">9. Faces</a></li>
+<li><a href="#org07655fb">10. Babel</a></li>
+<li><a href="#orgfe3d917">11. Export</a></li>
+<li><a href="#orgd2097f8">12. Attachments</a></li>
+<li><a href="#org708cc99">13. Encryption</a></li>
+<li><a href="#orgba74f2f">14. Misc Keybindings</a></li>
+<li><a href="#orgb8e8aa5">15. Finalization</a></li>
+<li><a href="#org35bdc43">16. Links</a>
+<ul>
+<li><a href="#orgc59546e">16.1. Inspiration</a></li>
+<li><a href="#org4edafde">16.2. Resources</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+This is an approach to put my whole Org mode configuration into one <code>.org</code> file.
+</p>
+
+
+<div class="figure">
+<p><img src="./images/org_screenshot_project.png" alt="org_screenshot_project.png" />
+</p>
+</div>
+
+<div id="outline-container-org4f66a33" class="outline-2">
+<h2 id="org4f66a33"><span class="section-number-2">1</span> Task States</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Right now, all my TODO-related files include the same task states, defined in a common setup file.
+</p>
+
+
+<div class="figure">
+<p><img src="images/task_states.png" alt="task_states.png" />
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org171a40e" class="outline-3">
+<h3 id="org171a40e"><span class="section-number-3">1.1</span> Logging Task State change</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Changes to task states might get logged, especially for recurring routines.
+If so, log them in a drawer, not the content of the note.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-log-state-notes-into-drawer t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org3d6ce5e" class="outline-2">
+<h2 id="org3d6ce5e"><span class="section-number-2">2</span> Environment</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The directory that contains the <code>.org</code> files is not only synced by a cloud service across devices, it is also a git repository that auto-commits on every save of a buffer. This is activated by a <code>.dir_locals.el</code> file with the following content:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>nil . <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>eval git-auto-commit-mode <span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5195473" class="outline-2">
+<h2 id="org5195473"><span class="section-number-2">3</span> Initialization</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This enables buffer face mode for the Org agenda views.
+</p>
+
+<p>
+While Org mode needs a lot of custom styling to work in <code>variable-pitch-mode</code> I take the easy way out in the agenda view by choosing the monospaced version of the font: <code>iA Writer Mono S</code>. It is way easier to align the ASCII tables of agenda with a font with a fixed pitch.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-org-config/setup-buffer-face</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">setq</span> buffer-face-mode-face '<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">:family</span> <span class="org-string">"iA Writer Mono S"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>buffer-face-mode<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'org-agenda-mode-hook 'my-org-config/setup-buffer-face<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Once Org mode loaded, turn on <code>olivetti</code>, hide tilde fringes and enable visual line mode.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-org-config/after-org-mode-load</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>visual-line-mode<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>vi-tilde-fringe-mode <span class="org-highlight-numbers-number">-1</span><span class="org-rainbow-delimiters-depth-2">)</span>
+
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">require</span> '<span class="org-constant">org-indent</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>org-indent-mode<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>set-face-attribute 'org-indent nil <span class="org-builtin">:inherit</span> '<span class="org-rainbow-delimiters-depth-3">(</span>org-hide fixed-pitch<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+
+  <span class="org-rainbow-delimiters-depth-2">(</span>variable-pitch-mode <span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-2">)</span>
+
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">(turn-on-olivetti-mode)</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">(with-eval-after-load 'olivetti</span>
+  <span class="org-comment-delimiter">;;   </span><span class="org-comment">(olivetti-set-width 81)</span>
+  <span class="org-comment-delimiter">;;   </span><span class="org-comment">(olivetti-mode 1))</span>
+  <span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'org-mode-hook 'my-org-config/after-org-mode-load<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Save all Org buffers after archiving, as this will trigger the auto-commit of the git repo the Org files live in.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-org-config/after-org-archive</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>org-save-all-org-buffers<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'org-archive-hook 'my-org-config/after-org-archive<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Within a recurring task, reset contained check boxes when task is done if <code>RESET_CHECK_BOXES</code> property is set to <code>t</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">org-checklist</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9edd6b0" class="outline-2">
+<h2 id="org9edd6b0"><span class="section-number-2">4</span> Quick Access</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Quick access to my most important org functions is given by opening the menu <code>SPC o</code>.
+</p>
+
+<p>
+It is not really needed/working to declare this prefix, as the prefix <code>o</code> is reserved  for user bindings anyways.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/declare-prefix <span class="org-string">"o"</span> <span class="org-string">"org mode"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+You can view my daily agenda with <code>SPC o d</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-org-daily-agenda</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">interactive</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>org-agenda nil <span class="org-string">"d"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys <span class="org-string">"od"</span> 'my-org-daily-agenda<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Add a new todo with preselected template with <code>SPC o t</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-org-add-todo</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">interactive</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>org-capture nil <span class="org-string">"t"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys <span class="org-string">"ot"</span> 'my-org-add-todo<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Call <code>org-capture</code> with <code>SPC o c</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys <span class="org-string">"oc"</span> 'org-capture<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Call <code>org-agenda</code> with <code>SPC o a</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys <span class="org-string">"oa"</span> 'org-agenda<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Call <code>org-store-link</code> with <code>SPC o l</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys <span class="org-string">"ol"</span> 'org-store-link<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+<i>Experimental:</i> Open a mini buffer to search through all org file names.
+</p>
+
+<p>
+Not sure how much sense this makes, as I want the selected file to be opened in the proper perspective. Also, maybe <code>org-rifle</code> makes more sense?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-org-helm-find-file</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">interactive</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>helm-browse-project-find-files <span class="org-string">"/Users/fabrik42/org"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys <span class="org-string">"of"</span> 'my-org-helm-find-file<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5bfdf4e" class="outline-2">
+<h2 id="org5bfdf4e"><span class="section-number-2">5</span> Files</h2>
+<div class="outline-text-2" id="text-5">
+
+<div class="figure">
+<p><img src="images/file_setup.png" alt="file_setup.png" />
+</p>
+</div>
+
+<p>
+I use a general inbox file to collect all new tasks on the run and will batch-schedule/refile them a couple times a day.
+</p>
+
+<p>
+Inbox and mobile inbox co-exist to prevent sync conflicts when adding tasks while having no internet connection. This works pretty well and I treat them equally in the agenda views.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">org-my-inbox-file</span> <span class="org-string">"~/org/inbox.org"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">org-my-mobile-inbox-file</span> <span class="org-string">"~/org/inbox_mobile.org"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Default note file, that will also be used for capturing new notes.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-default-notes-file org-my-inbox-file<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Work-related tasks and notes.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">org-my-general-files</span> <span class="org-string">"~/org"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Private tasks and notes.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">org-my-projects-dir</span> <span class="org-string">"~/org/projects"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+The files to be used for agenda display. This contains:
+</p>
+
+<ul class="org-ul">
+<li>Task inbox file</li>
+<li>Mobile task inbox file</li>
+<li>Work tasks file</li>
+</ul>
+
+<p>
+<i>Note:</i> Right now, I would like to have <code>TODOs</code> in my project files as well. However, this does not play well with <a href="https://beorgapp.com/">beorg</a>, as the app only allows one org directory without subfolders. :(
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'org-agenda-files org-my-general-files<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-to-list 'org-agenda-files org-my-projects-dir<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Refile targets are all agenda files, plus my project files. I fine-tune the considered headings to prevent human error when choosing the new location.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-refile-targets <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">quote</span> <span class="org-rainbow-delimiters-depth-3">(</span>
+                                 <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-files <span class="org-builtin">:maxlevel</span> . <span class="org-highlight-numbers-number">2</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                 <span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4e2d7ec" class="outline-2">
+<h2 id="org4e2d7ec"><span class="section-number-2">6</span> Capture</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Store new notes at the beginning of a file or entry.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-reverse-note-order t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+These are my custom capture templates.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-capture-templates '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"t"</span> <span class="org-string">"Todo [inbox]"</span>
+                                entry
+                                <span class="org-rainbow-delimiters-depth-4">(</span>file <span class="org-string">"~/org/inbox.org"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                <span class="org-string">"* </span><span class="custom">TODO</span><span class="org-string"> %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                              <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span> <span class="org-string">"Todo w/date [inbox]"</span>
+                                entry
+                                <span class="org-rainbow-delimiters-depth-4">(</span>file <span class="org-string">"~/org/inbox.org"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                <span class="org-string">"* </span><span class="custom">TODO</span><span class="org-string"> %? %&lt;%Y-%m-%d&gt;\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                              <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"l"</span> <span class="org-string">"Link currently stored [inbox]"</span>
+                                entry
+                                <span class="org-rainbow-delimiters-depth-4">(</span>file <span class="org-string">"~/org/inbox.org"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                <span class="org-string">"* </span><span class="custom">TODO</span><span class="org-string"> %i%?\n:PROPERTIES:\n:CREATED: %U\n:END:\n</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">%A\n%i\n"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                              <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"m"</span> <span class="org-string">"Meeting [inbox]"</span>
+                                entry
+                                <span class="org-rainbow-delimiters-depth-4">(</span>file <span class="org-string">"~/org/inbox.org"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                <span class="org-string">"* Meeting %&lt;%Y-%m-%d&gt;: %^{prompt}\n:PROPERTIES:\n:CREATED: %U\n:END:\n- [ ] %?\n\n"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2434ad7" class="outline-2">
+<h2 id="org2434ad7"><span class="section-number-2">7</span> Agenda</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Enable <a href="https://github.com/alphapapa/org-super-agenda">org-super-agenda</a> mode.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>org-super-agenda-mode<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Show warnings for deadlines 7 days in advance.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-deadline-warning-days <span class="org-highlight-numbers-number">7</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Use a straight line as separator for between agenda blocks.
+See <a href="https://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&amp;utf8=dec&amp;unicodeinhtml=dec">Unicode/UTF-8-character table</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-agenda-block-separator <span class="org-highlight-numbers-number">9472</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Don't show scheduled items in agenda when they are in a <code>DONE</code> state.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-agenda-skip-scheduled-if-done t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Agenda view starts today and +7 days.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-agenda-start-on-weekday nil<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org27f817c" class="outline-3">
+<h3 id="org27f817c"><span class="section-number-3">7.1</span> Custom Agenda Views</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+Custom agenda commands used to generate my agenda views.
+</p>
+
+<p>
+<i>Experimental</i>: New and better agenda views, powered by <a href="https://github.com/alphapapa/org-super-agenda">org-super-agenda</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org4dc409b"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>agenda <span class="org-string">""</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-span 'day<span class="org-rainbow-delimiters-depth-4">)</span>
+             <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-compact-blocks t<span class="org-rainbow-delimiters-depth-4">)</span>
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">(org-agenda-deadline-leaders)</span>
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">(org-agenda-scheduled-leaders)</span>
+             <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-prefix-format '<span class="org-rainbow-delimiters-depth-5">(</span>
+                                         <span class="org-rainbow-delimiters-depth-6">(</span>agenda . <span class="org-string">"  %?-12t"</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                                         <span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+             <span class="org-rainbow-delimiters-depth-4">(</span>org-super-agenda-groups
+              '<span class="org-rainbow-delimiters-depth-5">(</span>
+                <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"&#9200; Calendar"</span> <span class="org-builtin">:time-grid</span> t<span class="org-rainbow-delimiters-depth-6">)</span>
+
+                <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"&#9888; Overdue!"</span> <span class="org-builtin">:deadline</span> past<span class="org-rainbow-delimiters-depth-6">)</span>
+                <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"&#9888; Overdue!"</span> <span class="org-builtin">:scheduled</span> past<span class="org-rainbow-delimiters-depth-6">)</span>
+
+                <span class="org-comment-delimiter">;; </span><span class="org-comment">Discard full-day events from agenda</span>
+                <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:discard</span> <span class="org-rainbow-delimiters-depth-7">(</span><span class="org-builtin">:category</span> <span class="org-string">"Cal"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
+
+                <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"&#11088; Next"</span> <span class="org-builtin">:todo</span> <span class="org-string">"</span><span class="custom">NEXT</span><span class="org-string">"</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"&#11088; Important"</span> <span class="org-builtin">:priority</span> <span class="org-string">"A"</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"&#128204; Routines"</span> <span class="org-builtin">:category</span> <span class="org-string">"Routines"</span><span class="org-rainbow-delimiters-depth-6">)</span>
+
+                <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:auto-category</span> t<span class="org-rainbow-delimiters-depth-6">)</span>
+                <span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+             <span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>alltodo <span class="org-string">""</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">""</span><span class="org-rainbow-delimiters-depth-4">)</span>
+              <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-prefix-format '<span class="org-rainbow-delimiters-depth-5">(</span>
+                                          <span class="org-rainbow-delimiters-depth-6">(</span>todo . <span class="org-string">"  "</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                                          <span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+              <span class="org-rainbow-delimiters-depth-4">(</span>org-super-agenda-groups
+               '<span class="org-rainbow-delimiters-depth-5">(</span>
+                 <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"Inbox"</span> <span class="org-builtin">:tag</span> <span class="org-string">"inbox"</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                 <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"Verify"</span> <span class="org-builtin">:todo</span> <span class="org-string">"VERIFY"</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                 <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:discard</span> <span class="org-rainbow-delimiters-depth-7">(</span><span class="org-builtin">:anything</span> t<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                 <span class="org-rainbow-delimiters-depth-5">)</span>
+               <span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+This used to be my main agenda view for my work at ioki.
+</p>
+
+<p>
+I switched between:
+</p>
+<ul class="org-ul">
+<li>Viewing only the current day for focus on today's tasks</li>
+<li>Viewing all week for scheduling tasks</li>
+<li>Enabling <code>Log mode</code> to view recently completed tasks (today and yesterday)</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="orge51b270"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>agenda <span class="org-string">""</span> <span class="org-rainbow-delimiters-depth-3">(</span>
+             <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">"THIS WEEK"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+             <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-span 'day<span class="org-rainbow-delimiters-depth-4">)</span>
+             <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-scheduled-leaders '<span class="org-rainbow-delimiters-depth-5">(</span><span class="org-string">"   "</span> <span class="org-string">"%2dx"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+             <span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>tags <span class="org-string">"+inbox"</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">"INBOX: Entries to refile"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>todo <span class="org-string">"VERIFY"</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">"FINAL VERIFICATION PENDING"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+This view is used by me whenever I clean up my Org files.
+It lists completed tasks that I can archive then, as well tasks then are uncomplete, but without a scheduled date.
+</p>
+
+<p>
+I don't use it that often as I should, as I still have no satisfying way of batch-archiving entries.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org399a2e4"><span class="org-rainbow-delimiters-depth-1">(</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>todo <span class="org-string">"</span><span class="custom-1">DONE</span><span class="org-string">"</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">"</span><span class="custom-1">DONE</span><span class="org-string">!"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>todo <span class="org-string">"CANCELLED"</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">"CANCELLED"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>todo <span class="org-string">"</span><span class="custom">TODO</span><span class="org-string">"</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">"</span><span class="custom">TODO</span><span class="org-string"> Items (without time attached)"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-skip-function '<span class="org-rainbow-delimiters-depth-5">(</span>org-agenda-skip-entry-if 'deadline 'scheduled 'timestamp<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>todo <span class="org-string">"WAIT"</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">"WAIT: Items on hold (without time attached)"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-skip-function '<span class="org-rainbow-delimiters-depth-5">(</span>org-agenda-skip-entry-if 'deadline 'scheduled 'timestamp<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Map the custom agenda commands to keys.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-agenda-custom-commands '<span class="org-rainbow-delimiters-depth-2">(</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"h"</span> <span class="org-string">"IOKI DASHBOARD"</span>
+     &lt;&lt;agenda-view-ioki&gt;&gt;
+     <span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"w"</span> <span class="org-string">"WEEKLY REVIEW"</span>
+     &lt;&lt;agenda-view-weekly&gt;&gt;
+     <span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span> <span class="org-string">"DAILY"</span>
+     &lt;&lt;agenda-view-daily&gt;&gt;
+     <span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2041508" class="outline-2">
+<h2 id="org2041508"><span class="section-number-2">8</span> Appearance</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Show the filename and outline path in helm when refiling an entry.
+Also refile in one step (makes much more sense for helm).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-refile-use-outline-path 'file<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-outline-path-complete-in-steps nil<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+The header line appears, optionally, at the top of a window, analogous to mode line.
+Hack to give some vertical space at the top of each buffer.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> header-line-format <span class="org-string">" "</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Folding symbol for the headings.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-ellipsis <span class="org-string">" &#61703; "</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Show actually <i>italicized</i> text instead of <code>/italicized text/</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-hide-emphasis-markers t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Fontify (aka "highlight, change appearance via font settings") the whole line for headings.
+This is useful when setting a background color for the <code>org-level-*</code> faces.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-fontify-whole-heading-line t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Change the face of a headline if it is marked <code>DONE</code>.
+Normally, only the TODO/DONE keyword indicates the state of a headline.
+When this is non-nil, the headline after the keyword is set to the <code>org-headline-done</code> as an additional indication.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-fontify-done-headline t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Add a special face to <code>#+begin_quote</code> and <code>#+begin_verse</code> block.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-fontify-quote-and-verse-blocks t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Set bullet glyphs for Org headings.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-bullets-bullet-list '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"&#11042;"</span> <span class="org-string">"&#9670;"</span> <span class="org-string">"&#9650;"</span> <span class="org-string">"&#9632;"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Show tags directly after headings (not on the right), which plays nicer with line-wrapping.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-tags-column <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1146e43" class="outline-2">
+<h2 id="org1146e43"><span class="section-number-2">9</span> Faces</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Faces for <code>TODO</code> states. The colors are based on the <a href="https://github.com/dracula/emacs">Dracula theme for Emacs</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let*</span> <span class="org-rainbow-delimiters-depth-2">(</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>comment      <span class="org-string">"#6272a4"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>warning      <span class="org-string">"#ffb86c"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-1    <span class="org-string">"#f8f8f2"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-2    <span class="org-string">"#8be9fd"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-3    <span class="org-string">"#bd93f9"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-4    <span class="org-string">"#ff79c6"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-5    <span class="org-string">"#ffb86c"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-6    <span class="org-string">"#50fa7b"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-7    <span class="org-string">"#f1fa8c"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-8    <span class="org-string">"#0189cc"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-9    <span class="org-string">"#ff5555"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>rainbow-10   <span class="org-string">"#a0522d"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+
+       <span class="org-rainbow-delimiters-depth-3">(</span>variable-pitch-font `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-builtin">:family</span> <span class="org-string">"iA Writer Quattro S"</span> <span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>fixed-pitch-font    `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-builtin">:family</span> <span class="org-string">"Fira Mono"</span> <span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+       <span class="org-rainbow-delimiters-depth-3">(</span>fixed-pitch-font-alt `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-builtin">:family</span> <span class="org-string">"iA Writer Mono S"</span> <span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">setq</span> org-todo-keyword-faces <span class="org-rainbow-delimiters-depth-3">(</span>list
+                              `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"</span><span class="custom-2">TODO</span><span class="org-string">"</span>
+                                ,@fixed-pitch-font
+                                <span class="org-builtin">:foreground</span> ,comment
+                                <span class="org-builtin">:weight</span> bold
+                                <span class="org-rainbow-delimiters-depth-4">)</span>
+                              `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"</span><span class="custom-1">NEXT</span><span class="org-string">"</span>
+                                ,@fixed-pitch-font
+                                <span class="org-builtin">:foreground</span> ,warning
+                                <span class="org-builtin">:weight</span> bold<span class="org-rainbow-delimiters-depth-4">)</span>
+                              `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"WAIT"</span>
+                                ,@fixed-pitch-font
+                                <span class="org-builtin">:foreground</span> ,rainbow-2
+                                <span class="org-builtin">:weight</span> bold<span class="org-rainbow-delimiters-depth-4">)</span>
+                              `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"VERIFY"</span>
+                                ,@fixed-pitch-font
+                                <span class="org-builtin">:foreground</span> ,rainbow-7
+                                <span class="org-builtin">:weight</span> bold<span class="org-rainbow-delimiters-depth-4">)</span>
+                              `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"LOWPRIO"</span>
+                                ,@fixed-pitch-font
+                                <span class="org-builtin">:foreground</span> ,comment
+                                <span class="org-builtin">:weight</span> bold<span class="org-rainbow-delimiters-depth-4">)</span>
+                              `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"</span><span class="custom">DONE</span><span class="org-string">"</span>
+                                ,@fixed-pitch-font
+                                <span class="org-builtin">:foreground</span> ,rainbow-6
+                                <span class="org-builtin">:weight</span> bold<span class="org-rainbow-delimiters-depth-4">)</span>
+                              `<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"CANCELLED"</span>
+                                ,@fixed-pitch-font
+                                <span class="org-builtin">:foreground</span> ,rainbow-9
+                                <span class="org-builtin">:weight</span> bold<span class="org-rainbow-delimiters-depth-4">)</span>
+                              <span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org07655fb" class="outline-2">
+<h2 id="org07655fb"><span class="section-number-2">10</span> Babel</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Syntax highlightning in code blocks
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-src-fontify-natively t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Trying to fix indentation behaviour within code blocks.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-edit-src-content-indentation <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-src-tab-acts-natively t<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-src-preserve-indentation t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Allow babel code execution without confirming it every time.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-confirm-babel-evaluate nil<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Available embedded languages for babel.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>org-babel-do-load-languages 'org-babel-load-languages
+                              '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>sql . t<span class="org-rainbow-delimiters-depth-3">)</span>
+                                <span class="org-rainbow-delimiters-depth-3">(</span>shell . t<span class="org-rainbow-delimiters-depth-3">)</span>
+                                <span class="org-rainbow-delimiters-depth-3">(</span>dot . t<span class="org-rainbow-delimiters-depth-3">)</span>
+                                <span class="org-rainbow-delimiters-depth-3">(</span>emacs-lisp . t<span class="org-rainbow-delimiters-depth-3">)</span>
+                                <span class="org-rainbow-delimiters-depth-3">(</span>ruby . t<span class="org-rainbow-delimiters-depth-3">)</span>
+                                <span class="org-rainbow-delimiters-depth-3">(</span>js . t<span class="org-rainbow-delimiters-depth-3">)</span>
+                                <span class="org-rainbow-delimiters-depth-3">(</span>plantuml . t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+PlantUML Settings for generating diagrams. It needs to know the path to the installed PlantUML <code>jar</code>, in this case installed via <code>homebrew</code>, so this path is available by calling <code>brew info plantuml</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-plantuml-jar-path <span class="org-string">"/usr/local/Cellar/plantuml/1.2018.3/libexec/plantuml.jar"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfe3d917" class="outline-2">
+<h2 id="orgfe3d917"><span class="section-number-2">11</span> Export</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Do not inline CSS code when generating HTML exports. Instead, the CSS of the chosen theme will be used. This especially applies to fontified code blocks.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-html-htmlize-output-type 'css<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd2097f8" class="outline-2">
+<h2 id="orgd2097f8"><span class="section-number-2">12</span> Attachments</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+Org download should use the attachment features to save the images.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-download-method 'attach<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org708cc99" class="outline-2">
+<h2 id="org708cc99"><span class="section-number-2">13</span> Encryption</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+The package <code>org-crypt</code> allows to encrypt subtrees using <code>GPG</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">org-crypt</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Prevent the crypt tag from using inheritance so that there is no encrypted data inside encrypted data.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-tags-exclude-from-inheritance <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">quote</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"crypt"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Set GPG key to use for encryption
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-crypt-key <span class="org-string">"821280F4"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Encrypt all entries before saving.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>org-crypt-use-before-save-magic<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Disable auto-save-mode for the current buffer prior to decrypting an entry.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-crypt-disable-auto-save t<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Set crypt as default tag available in Org files.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-tag-alist '<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"crypt"</span> . ?c<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Add keybindings for encrypting and decrypting a subtree.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys-for-major-mode
+  'org-mode <span class="org-string">"se"</span> 'org-encrypt-entry<span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys-for-major-mode
+  'org-mode <span class="org-string">"sd"</span> 'org-decrypt-entry<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgba74f2f" class="outline-2">
+<h2 id="orgba74f2f"><span class="section-number-2">14</span> Misc Keybindings</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+Allows to change the <code>TODO</code> state of a task via <code>, k</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys-for-major-mode
+  'org-mode <span class="org-string">"k"</span> 'org-todo<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Adds <a href="https://github.com/unhammer/org-rich-yank">org-rich-yank</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>spacemacs/set-leader-keys-for-major-mode
+  'org-mode <span class="org-string">"ir"</span> 'org-rich-yank<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb8e8aa5" class="outline-2">
+<h2 id="orgb8e8aa5"><span class="section-number-2">15</span> Finalization</h2>
+<div class="outline-text-2" id="text-15">
+<p>
+In the end, satisfy the Spacemacs loading mechanism.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">provide</span> '<span class="org-constant">my-org-config</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org35bdc43" class="outline-2">
+<h2 id="org35bdc43"><span class="section-number-2">16</span> Links</h2>
+<div class="outline-text-2" id="text-16">
+</div>
+<div id="outline-container-orgc59546e" class="outline-3">
+<h3 id="orgc59546e"><span class="section-number-3">16.1</span> Inspiration</h3>
+<div class="outline-text-3" id="text-16-1">
+<ul class="org-ul">
+<li><a href="https://github.com/larstvei/dot-emacs/blob/master/init.org">larstvei's dot-emacs/init.org</a></li>
+<li><a href="https://github.com/wasamasa/dotemacs/blob/master/init.org">wasamasa's dotemacs/init.org</a></li>
+<li><a href="https://to1ne.gitlab.io/literate-dotfiles/">Toon’s Literate Dotfiles</a></li>
+<li><a href="https://github.com/kunalb/poet/blob/master/metapoet.org">Poet theme's metapoet.org file</a></li>
+<li><a href="https://azer.bike/journal/ia-writer-mode-for-emacs/">iA Writer Mode for Emacs</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4edafde" class="outline-3">
+<h3 id="org4edafde"><span class="section-number-3">16.2</span> Resources</h3>
+<div class="outline-text-3" id="text-16-2">
+<ul class="org-ul">
+<li><a href="http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html">Introduction to Literate Programming</a></li>
+<li><a href="https://orgmode.org/manual/Variable-Index.html">The Org Manual: Variable Index</a></li>
+<li><a href="https://orgmode.org/manual/var.html">The Org Manual: How to use var in code blocks</a></li>
+<li><a href="http://joelmccracken.github.io/entries/org-mode-specifying-document-variables-and-keywords/">Org-mode, File Variables, Properties, and Keywords</a></li>
+<li><a href="https://orgmode.org/manual/Editing-Source-Code.html#index-org_002dsrc_002dfontify_002dnatively">The Org Manual: Fontify code block</a></li>
+</ul>
+
+<hr />
+
+<p><a href="./my-org-config.org">View Org Source</a></p>
+
+<p><a href="./index.html">Back to Index</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Christian Bäuerlein</p>
+<p class="date">Created: 2019-08-05 Mon 14:44</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

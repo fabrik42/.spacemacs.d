@@ -1,0 +1,39 @@
+#+TITLE: Emacs Configuration
+#+PROPERTY: header-args+ :comments both
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "my-org-config.el"
+#+SETUPFILE: ./_setup.org
+
+* Introduction
+Some people have a Zen garden, I have my Emacs configuration.
+
+I am far from being an Emacs or Elisp expert, but I love investing time into fiddling with the editor, note-taker and task manager of my choice.
+
+I created this documentation in order to become more structured in my approach - and also learn bit about [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]]. I decided to invest even more time into this and move all my setup into =.org= files. These files serve as source of the actual Elisp configuration files as well as for this documentation and even generate some fancy illustrations.
+
+Of course, this is a work in progress.
+* Chapters
+** General Configuration
+Some [[file:my-general-config.org][general Emacs configuration]]. I use Spacemacs in evil mode and this configuration does not list all my packages yet.
+** Org Mode
+See my [[file:my-org-config.org][personal Org mode configuration]], as I am a daily user of =Org mode= and put quite some time into sharpening this tool.
+** Custom Theme
+I use a [[file:my-dracula-theme.org][customized Dracula theme]] that I heavily modified for =Org mode=, especially the Org agenda views.
+* Deployment of this site
+This site is hosted on [[https://www.netlify.com][Netlify]], but right now, without the automated git-deploys. I still use the local [[https://github.com/netlify/cli/blob/master/docs/deploy.md][Netlify CLI]] to deploy files exported from Emacs.
+
+It can be deployed to a staging environment following command:
+
+#+BEGIN_SRC sh
+netlify deploy
+#+END_SRC
+
+Once ready, it can overwrite the production site providing the =prod= flag.
+
+#+BEGIN_SRC sh
+netlify deploy --prod
+#+END_SRC
+* Feedback
+I am always happy to receive questions and tipps around this document. Feel free to send me a message on [[https://twitter.com/fabrik42][Twitter]] or just send me a mail to ~fabrik42 /at/ gmail.com~.
+
+#+INCLUDE: "./_footer.org"

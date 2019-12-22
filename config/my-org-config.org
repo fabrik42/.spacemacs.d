@@ -1,0 +1,679 @@
+#+TITLE: Org mode configuration
+#+PROPERTY: header-args+ :comments both
+#+PROPERTY: header-args+ :mkdirp yes
+#+PROPERTY: header-args+ :tangle "my-org-config.el"
+#+SETUPFILE: ./_setup.org
+
+This is an approach to put my whole Org mode configuration into one =.org= file.
+
+#+ATTR_ORG: :width 500
+[[./images/org_screenshot_project.png]]
+
+* Task States
+Right now, all my TODO-related files include the same task states, defined in a common setup file.
+
+#+BEGIN_SRC plantuml :file images/task_states.png :cache yes :tangle no
+  skinparam monochrome true
+  skinparam backgroundcolor transparent
+  scale 1.5
+
+  node task [
+    Task States
+  ]
+  node state1 [
+    TODO
+  ]
+  node state2 [
+    WAIT
+  ]
+  node state3 [
+   VERIFY
+  ]
+  node state4 [
+   NEXT
+  ]
+  node state5 [
+    CANCELLED
+  ]
+  node state6 [
+    DONE
+  ]
+  task .. state1
+  task .. state2
+  task .. state3
+  task .. state4
+  task -- state5
+  task -- state6
+#+END_SRC
+#+ATTR_ORG: :width 500
+#+RESULTS[bca6d78b8f64ccc13393621292af6ab5b3ec1fbb]:
+[[file:images/task_states.png]]
+
+
+** Logging Task State change
+
+Changes to task states might get logged, especially for recurring routines.
+If so, log them in a drawer, not the content of the note.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-log-state-notes-into-drawer t)
+#+END_SRC
+* Environment
+
+The directory that contains the =.org= files is not only synced by a cloud service across devices, it is also a git repository that auto-commits on every save of a buffer. This is activated by a =.dir_locals.el= file with the following content:
+
+#+BEGIN_SRC emacs-lisp :tangle no
+((nil . ((eval git-auto-commit-mode 1))))
+#+END_SRC
+* Initialization
+
+This enables buffer face mode for the Org agenda views.
+
+While Org mode needs a lot of custom styling to work in =variable-pitch-mode= I take the easy way out in the agenda view by choosing the monospaced version of the font: =iA Writer Mono S=. It is way easier to align the ASCII tables of agenda with a font with a fixed pitch.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-config/setup-buffer-face ()
+  (setq buffer-face-mode-face '(:family "iA Writer Mono S"))
+  (buffer-face-mode)
+  )
+(add-hook 'org-agenda-mode-hook 'my-org-config/setup-buffer-face)
+#+END_SRC
+
+Once Org mode loaded, turn on =olivetti=, hide tilde fringes and enable visual line mode.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-config/after-org-mode-load ()
+  (visual-line-mode)
+  (vi-tilde-fringe-mode -1)
+
+  (require 'org-indent)
+  (org-indent-mode)
+  (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+
+  (variable-pitch-mode 1)
+
+  ;; (turn-on-olivetti-mode)
+  ;; (with-eval-after-load 'olivetti
+  ;;   (olivetti-set-width 81)
+  ;;   (olivetti-mode 1))
+  )
+
+(add-hook 'org-mode-hook 'my-org-config/after-org-mode-load)
+#+END_SRC
+
+Save all Org buffers after archiving, as this will trigger the auto-commit of the git repo the Org files live in.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-config/after-org-archive ()
+  (org-save-all-org-buffers))
+
+(add-hook 'org-archive-hook 'my-org-config/after-org-archive)
+#+END_SRC
+
+Within a recurring task, reset contained check boxes when task is done if =RESET_CHECK_BOXES= property is set to =t=.
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-checklist)
+#+END_SRC
+* Quick Access
+Quick access to my most important org functions is given by opening the menu =SPC o=.
+
+It is not really needed/working to declare this prefix, as the prefix =o= is reserved  for user bindings anyways.
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/declare-prefix "o" "org mode")
+#+END_SRC
+
+You can view my daily agenda with =SPC o d=.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-daily-agenda ()
+  (interactive)
+  (org-agenda nil "d")
+  )
+
+(spacemacs/set-leader-keys "od" 'my-org-daily-agenda)
+#+END_SRC
+
+Add a new todo with preselected template with =SPC o t=.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-add-todo ()
+  (interactive)
+  (org-capture nil "t")
+  )
+(spacemacs/set-leader-keys "ot" 'my-org-add-todo)
+#+END_SRC
+
+Call =org-capture= with =SPC o c=.
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/set-leader-keys "oc" 'org-capture)
+#+END_SRC
+
+Call =org-agenda= with =SPC o a=.
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/set-leader-keys "oa" 'org-agenda)
+#+END_SRC
+
+Call =org-store-link= with =SPC o l=.
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/set-leader-keys "ol" 'org-store-link)
+#+END_SRC
+
+/Experimental:/ Open a mini buffer to search through all org file names.
+
+Not sure how much sense this makes, as I want the selected file to be opened in the proper perspective. Also, maybe =org-rifle= makes more sense?
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-helm-find-file ()
+  (interactive)
+  (helm-browse-project-find-files "/Users/fabrik42/org")
+  )
+
+(spacemacs/set-leader-keys "of" 'my-org-helm-find-file)
+#+END_SRC
+* Files
+#+BEGIN_SRC plantuml :file images/file_setup.png :cache yes :tangle no
+  skinparam backgroundcolor transparent
+  scale 1.5
+
+  package "Capture" {
+    [Drafts App]
+    [Org Capture]
+  }
+
+  package "Org Files" {
+    frame "Long Term" {
+      [Archive]
+      [Notes]
+    }
+    frame "Agenda" #Orange {
+      [Inbox]
+      [Tasks]
+    }
+  }
+
+  [Org Capture] .[#Green]> [Inbox] : Add
+  [Drafts App] .[#Green]> [Inbox] : Add
+  [Inbox] .> [Tasks] : Refile
+  [Tasks] .> [Tasks] : Work
+  [Tasks] .> [Archive] : Archive
+#+END_SRC
+#+ATTR_ORG: :width 500
+#+RESULTS[a7f7c25837820dc1335565c4b8e0b6341e84f873]:
+[[file:images/file_setup.png]]
+
+I use a general inbox file to collect all new tasks on the run and will batch-schedule/refile them a couple times a day.
+
+Inbox and mobile inbox co-exist to prevent sync conflicts when adding tasks while having no internet connection. This works pretty well and I treat them equally in the agenda views.
+
+#+BEGIN_SRC emacs-lisp
+(defvar org-my-inbox-file "~/org/inbox.org")
+(defvar org-my-mobile-inbox-file "~/org/inbox_mobile.org")
+#+END_SRC
+
+Default note file, that will also be used for capturing new notes.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-default-notes-file org-my-inbox-file)
+#+END_SRC
+
+Work-related tasks and notes.
+
+#+BEGIN_SRC emacs-lisp
+(defvar org-my-general-files "~/org")
+#+END_SRC
+
+Private tasks and notes.
+
+#+BEGIN_SRC emacs-lisp
+(defvar org-my-projects-dir "~/org/projects")
+#+END_SRC
+
+The files to be used for agenda display. This contains:
+
+- Task inbox file
+- Mobile task inbox file
+- Work tasks file
+
+/Note:/ Right now, I would like to have =TODOs= in my project files as well. However, this does not play well with [[https://beorgapp.com/][beorg]], as the app only allows one org directory without subfolders. :(
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-agenda-files org-my-general-files)
+(add-to-list 'org-agenda-files org-my-projects-dir)
+#+END_SRC
+
+Refile targets are all agenda files, plus my project files. I fine-tune the considered headings to prevent human error when choosing the new location.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-targets (quote (
+                                 (org-agenda-files :maxlevel . 2)
+                                 )))
+#+END_SRC
+* Capture
+Store new notes at the beginning of a file or entry.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-reverse-note-order t)
+#+END_SRC
+
+These are my custom capture templates.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-capture-templates '(("t" "Todo [inbox]"
+                                entry
+                                (file "~/org/inbox.org")
+                                "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
+                              ("d" "Todo w/date [inbox]"
+                                entry
+                                (file "~/org/inbox.org")
+                                "* TODO %? %<%Y-%m-%d>\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
+                              ("l" "Link currently stored [inbox]"
+                                entry
+                                (file "~/org/inbox.org")
+                                "* TODO %i%?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\%A\n%i\n")
+                              ("m" "Meeting [inbox]"
+                                entry
+                                (file "~/org/inbox.org")
+                                "* Meeting %<%Y-%m-%d>: %^{prompt}\n:PROPERTIES:\n:CREATED: %U\n:END:\n- [ ] %?\n\n")))
+#+END_SRC
+* Agenda
+Enable [[https://github.com/alphapapa/org-super-agenda][org-super-agenda]] mode.
+
+#+BEGIN_SRC emacs-lisp
+(org-super-agenda-mode)
+#+END_SRC
+
+Disable the [[https://github.com/alphapapa/org-super-agenda/issues/112#issuecomment-548224512][super agenda header map]].
+
+#+BEGIN_SRC emacs-lisp
+(setq org-super-agenda-header-map nil)
+#+END_SRC
+
+Show warnings for deadlines 7 days in advance.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-deadline-warning-days 7)
+#+END_SRC
+
+Use a straight line as separator for between agenda blocks.
+See [[https://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&utf8=dec&unicodeinhtml=dec][Unicode/UTF-8-character table]].
+
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-block-separator 9472)
+#+END_SRC
+
+Don't show scheduled items in agenda when they are in a =DONE= state.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-skip-scheduled-if-done t)
+#+END_SRC
+
+Agenda view starts today and +7 days.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-start-on-weekday nil)
+#+END_SRC
+
+** Custom Agenda Views
+Custom agenda commands used to generate my agenda views.
+
+/Experimental/: New and better agenda views, powered by [[https://github.com/alphapapa/org-super-agenda][org-super-agenda]].
+
+#+NAME: agenda-view-daily
+#+BEGIN_SRC emacs-lisp :tangle no
+((agenda "" ((org-agenda-span 'day)
+             (org-agenda-compact-blocks t)
+             ;; (org-agenda-deadline-leaders)
+             ;; (org-agenda-scheduled-leaders)
+             (org-agenda-prefix-format '(
+                                         (agenda . "  %?-12t")
+                                         ))
+             (org-super-agenda-groups
+              '(
+                (:name "⏰ Calendar" :time-grid t)
+                (:name "Optional" :priority "C" :order 90)
+
+                (:name "⚠ Overdue!" :deadline past)
+                (:name "⚠ Overdue!" :scheduled past)
+
+                ;; Discard full-day events from agenda
+                (:discard (:category "Cal"))
+
+                (:name "⭐ Next" :todo "NEXT")
+                (:name "⭐ Important" :priority "A")
+                (:name "📌 Routines" :category "Routines")
+
+                (:auto-category t)
+                ))
+             ))
+ (alltodo "" ((org-agenda-overriding-header "")
+              (org-agenda-prefix-format '(
+                                          (todo . "  ")
+                                          ))
+              (org-super-agenda-groups
+               '(
+                 (:name "Inbox" :tag "inbox")
+                 (:name "Verify" :todo "VERIFY")
+                 (:discard (:anything t))
+                 )
+               ))))
+#+END_SRC
+
+This used to be my main agenda view for my work at ioki.
+
+I switched between:
+- Viewing only the current day for focus on today's tasks
+- Viewing all week for scheduling tasks
+- Enabling =Log mode= to view recently completed tasks (today and yesterday)
+
+#+NAME: agenda-view-ioki
+#+BEGIN_SRC emacs-lisp :tangle no
+((agenda "" (
+             (org-agenda-overriding-header "THIS WEEK")
+             (org-agenda-span 'day)
+             (org-agenda-scheduled-leaders '("   " "%2dx"))
+             ))
+ (tags "+inbox"
+       ((org-agenda-overriding-header "INBOX: Entries to refile")))
+ (todo "VERIFY"
+       ((org-agenda-overriding-header "FINAL VERIFICATION PENDING")))
+ )
+#+END_SRC
+
+This view is used by me whenever I clean up my Org files.
+It lists completed tasks that I can archive then, as well tasks then are uncomplete, but without a scheduled date.
+
+I don't use it that often as I should, as I still have no satisfying way of batch-archiving entries.
+
+#+NAME: agenda-view-weekly
+#+BEGIN_SRC emacs-lisp :tangle no
+(
+ (todo "DONE"
+       (
+        (org-agenda-overriding-header "DONE!")
+))
+ (todo "CANCELLED"
+       ((org-agenda-overriding-header "CANCELLED")))
+ (todo "TODO"
+       ((org-agenda-overriding-header "TODO Items (without time attached)")
+        (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled 'timestamp))))
+ (todo "WAIT"
+       ((org-agenda-overriding-header "WAIT: Items on hold (without time attached)")
+        (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled 'timestamp))))
+ )
+#+END_SRC
+
+Map the custom agenda commands to keys.
+
+#+BEGIN_SRC emacs-lisp  :noweb no-export
+(setq org-agenda-custom-commands '(
+    ("h" "IOKI DASHBOARD"
+     <<agenda-view-ioki>>
+     )
+    ("w" "WEEKLY REVIEW"
+     <<agenda-view-weekly>>
+     )
+    ("d" "DAILY"
+     <<agenda-view-daily>>
+     )
+    ))
+#+END_SRC
+
+#+RESULTS:
+
+* Appearance
+Show the filename and outline path in helm when refiling an entry.
+Also refile in one step (makes much more sense for helm).
+
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-use-outline-path 'file)
+(setq org-outline-path-complete-in-steps nil)
+#+END_SRC
+
+The header line appears, optionally, at the top of a window, analogous to mode line.
+Hack to give some vertical space at the top of each buffer.
+
+#+BEGIN_SRC emacs-lisp
+(setq header-line-format " ")
+#+END_SRC
+
+Folding symbol for the headings.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-ellipsis "  ")
+#+END_SRC
+
+Show actually /italicized/ text instead of =/italicized text/=.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-hide-emphasis-markers t)
+#+END_SRC
+
+Fontify (aka "highlight, change appearance via font settings") the whole line for headings.
+This is useful when setting a background color for the =org-level-*= faces.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-fontify-whole-heading-line t)
+#+END_SRC
+
+Change the face of a headline if it is marked =DONE=.
+Normally, only the TODO/DONE keyword indicates the state of a headline.
+When this is non-nil, the headline after the keyword is set to the =org-headline-done= as an additional indication.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-fontify-done-headline t)
+#+END_SRC
+
+Add a special face to =#+begin_quote= and =#+begin_verse= block.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-fontify-quote-and-verse-blocks t)
+#+END_SRC
+
+Set bullet glyphs for Org headings.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-bullets-bullet-list '("⬢" "◆" "▲" "■"))
+#+END_SRC
+
+Show tags directly after headings (not on the right), which plays nicer with line-wrapping.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-tags-column 0)
+#+END_SRC
+* Faces
+Faces for =TODO= states. The colors are based on the [[https://github.com/dracula/emacs][Dracula theme for Emacs]].
+
+#+BEGIN_SRC emacs-lisp
+(let* (
+       (comment      "#6272a4")
+       (warning      "#ffb86c")
+       (rainbow-1    "#f8f8f2")
+       (rainbow-2    "#8be9fd")
+       (rainbow-3    "#bd93f9")
+       (rainbow-4    "#ff79c6")
+       (rainbow-5    "#ffb86c")
+       (rainbow-6    "#50fa7b")
+       (rainbow-7    "#f1fa8c")
+       (rainbow-8    "#0189cc")
+       (rainbow-9    "#ff5555")
+       (rainbow-10   "#a0522d")
+
+       (variable-pitch-font `(:family "iA Writer Quattro S" ))
+       (fixed-pitch-font    `(:family "Fira Mono" ))
+       (fixed-pitch-font-alt `(:family "iA Writer Mono S" )))
+
+  (setq org-todo-keyword-faces (list
+                              `("TODO"
+                                ,@fixed-pitch-font
+                                :foreground ,comment
+                                :weight bold
+                                )
+                              `("NEXT"
+                                ,@fixed-pitch-font
+                                :foreground ,warning
+                                :weight bold)
+                              `("WAIT"
+                                ,@fixed-pitch-font
+                                :foreground ,rainbow-2
+                                :weight bold)
+                              `("VERIFY"
+                                ,@fixed-pitch-font
+                                :foreground ,rainbow-7
+                                :weight bold)
+                              `("LOWPRIO"
+                                ,@fixed-pitch-font
+                                :foreground ,comment
+                                :weight bold)
+                              `("DONE"
+                                ,@fixed-pitch-font
+                                :foreground ,rainbow-6
+                                :weight bold)
+                              `("CANCELLED"
+                                ,@fixed-pitch-font
+                                :foreground ,rainbow-9
+                                :weight bold)
+                              ))
+)
+#+END_SRC
+
+* Babel
+Syntax highlightning in code blocks
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+#+END_SRC
+
+Trying to fix indentation behaviour within code blocks.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-edit-src-content-indentation 0)
+(setq org-src-tab-acts-natively t)
+(setq org-src-preserve-indentation t)
+#+END_SRC
+
+Allow babel code execution without confirming it every time.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
+Available embedded languages for babel.
+
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages 'org-babel-load-languages
+                              '((sql . t)
+                                (shell . t)
+                                (dot . t)
+                                (emacs-lisp . t)
+                                (ruby . t)
+                                (js . t)
+                                (plantuml . t)))
+#+END_SRC
+
+PlantUML Settings for generating diagrams. It needs to know the path to the installed PlantUML =jar=, in this case installed via =homebrew=, so this path is available by calling =brew info plantuml=.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.3/libexec/plantuml.jar")
+#+END_SRC
+
+* Export
+Do not inline CSS code when generating HTML exports. Instead, the CSS of the chosen theme will be used. This especially applies to fontified code blocks.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-html-htmlize-output-type 'css)
+#+END_SRC
+* Attachments
+Org download should use the attachment features to save the images.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-download-method 'attach)
+#+END_SRC
+* Encryption
+The package =org-crypt= allows to encrypt subtrees using =GPG=.
+
+#+BEGIN_SRC emacs-lisp
+(require 'org-crypt)
+#+END_SRC
+
+Prevent the crypt tag from using inheritance so that there is no encrypted data inside encrypted data.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+#+END_SRC
+
+Set GPG key to use for encryption
+
+#+BEGIN_SRC emacs-lisp
+(setq org-crypt-key "821280F4")
+#+END_SRC
+
+Encrypt all entries before saving.
+
+#+BEGIN_SRC emacs-lisp
+(org-crypt-use-before-save-magic)
+#+END_SRC
+
+Disable auto-save-mode for the current buffer prior to decrypting an entry.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-crypt-disable-auto-save t)
+#+END_SRC
+
+Set crypt as default tag available in Org files.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-tag-alist '(("crypt" . ?c)))
+#+END_SRC
+
+Add keybindings for encrypting and decrypting a subtree.
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/set-leader-keys-for-major-mode
+  'org-mode "se" 'org-encrypt-entry)
+
+(spacemacs/set-leader-keys-for-major-mode
+  'org-mode "sd" 'org-decrypt-entry)
+#+END_SRC
+
+* Misc Keybindings
+Allows to change the =TODO= state of a task via =, k=.
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/set-leader-keys-for-major-mode
+  'org-mode "k" 'org-todo)
+#+END_SRC
+
+Adds [[https://github.com/unhammer/org-rich-yank][org-rich-yank]].
+
+#+BEGIN_SRC emacs-lisp
+(spacemacs/set-leader-keys-for-major-mode
+  'org-mode "ir" 'org-rich-yank)
+#+END_SRC
+* Finalization
+In the end, satisfy the Spacemacs loading mechanism.
+
+#+BEGIN_SRC emacs-lisp
+(provide 'my-org-config)
+#+END_SRC
+
+* Links
+** Inspiration
+- [[https://github.com/larstvei/dot-emacs/blob/master/init.org][larstvei's dot-emacs/init.org]]
+- [[https://github.com/wasamasa/dotemacs/blob/master/init.org][wasamasa's dotemacs/init.org]]
+- [[https://to1ne.gitlab.io/literate-dotfiles/][Toon’s Literate Dotfiles]]
+- [[https://github.com/kunalb/poet/blob/master/metapoet.org][Poet theme's metapoet.org file]]
+- [[https://azer.bike/journal/ia-writer-mode-for-emacs/][iA Writer Mode for Emacs]]
+
+** Resources
+- [[http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html][Introduction to Literate Programming]]
+- [[https://orgmode.org/manual/Variable-Index.html][The Org Manual: Variable Index]]
+- [[https://orgmode.org/manual/var.html][The Org Manual: How to use var in code blocks]]
+- [[http://joelmccracken.github.io/entries/org-mode-specifying-document-variables-and-keywords/][Org-mode, File Variables, Properties, and Keywords]]
+- [[https://orgmode.org/manual/Editing-Source-Code.html#index-org_002dsrc_002dfontify_002dnatively][The Org Manual: Fontify code block]]
+
+#+INCLUDE: "./_footer.org"

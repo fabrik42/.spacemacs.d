@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: it for js tests
+# key: it
+# --
+it('$1', () => {
+  $0
+});
