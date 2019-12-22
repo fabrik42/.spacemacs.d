@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-08-05 Mon 14:44 -->
+<!-- 2019-12-22 Sun 20:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Org mode configuration</title>
@@ -253,33 +253,33 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org4f66a33">1. Task States</a>
+<li><a href="#orgdc570fb">1. Task States</a>
 <ul>
-<li><a href="#org171a40e">1.1. Logging Task State change</a></li>
+<li><a href="#orgfca0bad">1.1. Logging Task State change</a></li>
 </ul>
 </li>
-<li><a href="#org3d6ce5e">2. Environment</a></li>
-<li><a href="#org5195473">3. Initialization</a></li>
-<li><a href="#org9edd6b0">4. Quick Access</a></li>
-<li><a href="#org5bfdf4e">5. Files</a></li>
-<li><a href="#org4e2d7ec">6. Capture</a></li>
-<li><a href="#org2434ad7">7. Agenda</a>
+<li><a href="#orgda3af52">2. Environment</a></li>
+<li><a href="#org6898000">3. Initialization</a></li>
+<li><a href="#org0f9bc3a">4. Quick Access</a></li>
+<li><a href="#org22b3c24">5. Files</a></li>
+<li><a href="#orgc5dd608">6. Capture</a></li>
+<li><a href="#orgd55f733">7. Agenda</a>
 <ul>
-<li><a href="#org27f817c">7.1. Custom Agenda Views</a></li>
+<li><a href="#org968d6c8">7.1. Custom Agenda Views</a></li>
 </ul>
 </li>
-<li><a href="#org2041508">8. Appearance</a></li>
-<li><a href="#org1146e43">9. Faces</a></li>
-<li><a href="#org07655fb">10. Babel</a></li>
-<li><a href="#orgfe3d917">11. Export</a></li>
-<li><a href="#orgd2097f8">12. Attachments</a></li>
-<li><a href="#org708cc99">13. Encryption</a></li>
-<li><a href="#orgba74f2f">14. Misc Keybindings</a></li>
-<li><a href="#orgb8e8aa5">15. Finalization</a></li>
-<li><a href="#org35bdc43">16. Links</a>
+<li><a href="#orgdf31cfa">8. Appearance</a></li>
+<li><a href="#orgab88257">9. Faces</a></li>
+<li><a href="#org5ebcffa">10. Babel</a></li>
+<li><a href="#org0b8806e">11. Export</a></li>
+<li><a href="#orgc9c69f2">12. Attachments</a></li>
+<li><a href="#org2acd996">13. Encryption</a></li>
+<li><a href="#orgda293c7">14. Misc Keybindings</a></li>
+<li><a href="#org9684b8a">15. Finalization</a></li>
+<li><a href="#orgbcad25c">16. Links</a>
 <ul>
-<li><a href="#orgc59546e">16.1. Inspiration</a></li>
-<li><a href="#org4edafde">16.2. Resources</a></li>
+<li><a href="#org0706a7f">16.1. Inspiration</a></li>
+<li><a href="#org5cdde09">16.2. Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -295,8 +295,8 @@ This is an approach to put my whole Org mode configuration into one <code>.org</
 </p>
 </div>
 
-<div id="outline-container-org4f66a33" class="outline-2">
-<h2 id="org4f66a33"><span class="section-number-2">1</span> Task States</h2>
+<div id="outline-container-orgdc570fb" class="outline-2">
+<h2 id="orgdc570fb"><span class="section-number-2">1</span> Task States</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Right now, all my TODO-related files include the same task states, defined in a common setup file.
@@ -310,8 +310,8 @@ Right now, all my TODO-related files include the same task states, defined in a 
 </div>
 
 
-<div id="outline-container-org171a40e" class="outline-3">
-<h3 id="org171a40e"><span class="section-number-3">1.1</span> Logging Task State change</h3>
+<div id="outline-container-orgfca0bad" class="outline-3">
+<h3 id="orgfca0bad"><span class="section-number-3">1.1</span> Logging Task State change</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Changes to task states might get logged, especially for recurring routines.
@@ -325,8 +325,8 @@ If so, log them in a drawer, not the content of the note.
 </div>
 </div>
 </div>
-<div id="outline-container-org3d6ce5e" class="outline-2">
-<h2 id="org3d6ce5e"><span class="section-number-2">2</span> Environment</h2>
+<div id="outline-container-orgda3af52" class="outline-2">
+<h2 id="orgda3af52"><span class="section-number-2">2</span> Environment</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The directory that contains the <code>.org</code> files is not only synced by a cloud service across devices, it is also a git repository that auto-commits on every save of a buffer. This is activated by a <code>.dir_locals.el</code> file with the following content:
@@ -338,8 +338,8 @@ The directory that contains the <code>.org</code> files is not only synced by a 
 </div>
 </div>
 </div>
-<div id="outline-container-org5195473" class="outline-2">
-<h2 id="org5195473"><span class="section-number-2">3</span> Initialization</h2>
+<div id="outline-container-org6898000" class="outline-2">
+<h2 id="org6898000"><span class="section-number-2">3</span> Initialization</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 This enables buffer face mode for the Org agenda views.
@@ -405,8 +405,8 @@ Within a recurring task, reset contained check boxes when task is done if <code>
 </div>
 </div>
 </div>
-<div id="outline-container-org9edd6b0" class="outline-2">
-<h2 id="org9edd6b0"><span class="section-number-2">4</span> Quick Access</h2>
+<div id="outline-container-org0f9bc3a" class="outline-2">
+<h2 id="org0f9bc3a"><span class="section-number-2">4</span> Quick Access</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Quick access to my most important org functions is given by opening the menu <code>SPC o</code>.
@@ -494,8 +494,8 @@ Not sure how much sense this makes, as I want the selected file to be opened in 
 </div>
 </div>
 </div>
-<div id="outline-container-org5bfdf4e" class="outline-2">
-<h2 id="org5bfdf4e"><span class="section-number-2">5</span> Files</h2>
+<div id="outline-container-org22b3c24" class="outline-2">
+<h2 id="org22b3c24"><span class="section-number-2">5</span> Files</h2>
 <div class="outline-text-2" id="text-5">
 
 <div class="figure">
@@ -576,8 +576,8 @@ Refile targets are all agenda files, plus my project files. I fine-tune the cons
 </div>
 </div>
 </div>
-<div id="outline-container-org4e2d7ec" class="outline-2">
-<h2 id="org4e2d7ec"><span class="section-number-2">6</span> Capture</h2>
+<div id="outline-container-orgc5dd608" class="outline-2">
+<h2 id="orgc5dd608"><span class="section-number-2">6</span> Capture</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Store new notes at the beginning of a file or entry.
@@ -613,8 +613,8 @@ These are my custom capture templates.
 </div>
 </div>
 </div>
-<div id="outline-container-org2434ad7" class="outline-2">
-<h2 id="org2434ad7"><span class="section-number-2">7</span> Agenda</h2>
+<div id="outline-container-orgd55f733" class="outline-2">
+<h2 id="orgd55f733"><span class="section-number-2">7</span> Agenda</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 Enable <a href="https://github.com/alphapapa/org-super-agenda">org-super-agenda</a> mode.
@@ -622,6 +622,15 @@ Enable <a href="https://github.com/alphapapa/org-super-agenda">org-super-agenda<
 
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>org-super-agenda-mode<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Disable the <a href="https://github.com/alphapapa/org-super-agenda/issues/112#issuecomment-548224512">super agenda header map</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-super-agenda-header-map nil<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -663,8 +672,8 @@ Agenda view starts today and +7 days.
 </div>
 </div>
 
-<div id="outline-container-org27f817c" class="outline-3">
-<h3 id="org27f817c"><span class="section-number-3">7.1</span> Custom Agenda Views</h3>
+<div id="outline-container-org968d6c8" class="outline-3">
+<h3 id="org968d6c8"><span class="section-number-3">7.1</span> Custom Agenda Views</h3>
 <div class="outline-text-3" id="text-7-1">
 <p>
 Custom agenda commands used to generate my agenda views.
@@ -675,7 +684,7 @@ Custom agenda commands used to generate my agenda views.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org4dc409b"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>agenda <span class="org-string">""</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-span 'day<span class="org-rainbow-delimiters-depth-4">)</span>
+<pre class="src src-emacs-lisp" id="orgf613b0d"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>agenda <span class="org-string">""</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-span 'day<span class="org-rainbow-delimiters-depth-4">)</span>
              <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-compact-blocks t<span class="org-rainbow-delimiters-depth-4">)</span>
              <span class="org-comment-delimiter">;; </span><span class="org-comment">(org-agenda-deadline-leaders)</span>
              <span class="org-comment-delimiter">;; </span><span class="org-comment">(org-agenda-scheduled-leaders)</span>
@@ -685,6 +694,7 @@ Custom agenda commands used to generate my agenda views.
              <span class="org-rainbow-delimiters-depth-4">(</span>org-super-agenda-groups
               '<span class="org-rainbow-delimiters-depth-5">(</span>
                 <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"&#9200; Calendar"</span> <span class="org-builtin">:time-grid</span> t<span class="org-rainbow-delimiters-depth-6">)</span>
+                <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"Optional"</span> <span class="org-builtin">:priority</span> <span class="org-string">"C"</span> <span class="org-builtin">:order</span> <span class="org-highlight-numbers-number">90</span><span class="org-rainbow-delimiters-depth-6">)</span>
 
                 <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"&#9888; Overdue!"</span> <span class="org-builtin">:deadline</span> past<span class="org-rainbow-delimiters-depth-6">)</span>
                 <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-builtin">:name</span> <span class="org-string">"&#9888; Overdue!"</span> <span class="org-builtin">:scheduled</span> past<span class="org-rainbow-delimiters-depth-6">)</span>
@@ -727,7 +737,7 @@ I switched between:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orge51b270"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>agenda <span class="org-string">""</span> <span class="org-rainbow-delimiters-depth-3">(</span>
+<pre class="src src-emacs-lisp" id="org8116c5c"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span>agenda <span class="org-string">""</span> <span class="org-rainbow-delimiters-depth-3">(</span>
              <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">"THIS WEEK"</span><span class="org-rainbow-delimiters-depth-4">)</span>
              <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-span 'day<span class="org-rainbow-delimiters-depth-4">)</span>
              <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-scheduled-leaders '<span class="org-rainbow-delimiters-depth-5">(</span><span class="org-string">"   "</span> <span class="org-string">"%2dx"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
@@ -750,7 +760,7 @@ I don't use it that often as I should, as I still have no satisfying way of batc
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org399a2e4"><span class="org-rainbow-delimiters-depth-1">(</span>
+<pre class="src src-emacs-lisp" id="org513f707"><span class="org-rainbow-delimiters-depth-1">(</span>
  <span class="org-rainbow-delimiters-depth-2">(</span>todo <span class="org-string">"</span><span class="custom-1">DONE</span><span class="org-string">"</span>
        <span class="org-rainbow-delimiters-depth-3">(</span>
         <span class="org-rainbow-delimiters-depth-4">(</span>org-agenda-overriding-header <span class="org-string">"</span><span class="custom-1">DONE</span><span class="org-string">!"</span><span class="org-rainbow-delimiters-depth-4">)</span>
@@ -789,8 +799,8 @@ Map the custom agenda commands to keys.
 </div>
 </div>
 
-<div id="outline-container-org2041508" class="outline-2">
-<h2 id="org2041508"><span class="section-number-2">8</span> Appearance</h2>
+<div id="outline-container-orgdf31cfa" class="outline-2">
+<h2 id="orgdf31cfa"><span class="section-number-2">8</span> Appearance</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 Show the filename and outline path in helm when refiling an entry.
@@ -880,8 +890,8 @@ Show tags directly after headings (not on the right), which plays nicer with lin
 </div>
 </div>
 </div>
-<div id="outline-container-org1146e43" class="outline-2">
-<h2 id="org1146e43"><span class="section-number-2">9</span> Faces</h2>
+<div id="outline-container-orgab88257" class="outline-2">
+<h2 id="orgab88257"><span class="section-number-2">9</span> Faces</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 Faces for <code>TODO</code> states. The colors are based on the <a href="https://github.com/dracula/emacs">Dracula theme for Emacs</a>.
@@ -943,8 +953,8 @@ Faces for <code>TODO</code> states. The colors are based on the <a href="https:/
 </div>
 </div>
 
-<div id="outline-container-org07655fb" class="outline-2">
-<h2 id="org07655fb"><span class="section-number-2">10</span> Babel</h2>
+<div id="outline-container-org5ebcffa" class="outline-2">
+<h2 id="org5ebcffa"><span class="section-number-2">10</span> Babel</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 Syntax highlightning in code blocks
@@ -1002,8 +1012,8 @@ PlantUML Settings for generating diagrams. It needs to know the path to the inst
 </div>
 </div>
 
-<div id="outline-container-orgfe3d917" class="outline-2">
-<h2 id="orgfe3d917"><span class="section-number-2">11</span> Export</h2>
+<div id="outline-container-org0b8806e" class="outline-2">
+<h2 id="org0b8806e"><span class="section-number-2">11</span> Export</h2>
 <div class="outline-text-2" id="text-11">
 <p>
 Do not inline CSS code when generating HTML exports. Instead, the CSS of the chosen theme will be used. This especially applies to fontified code blocks.
@@ -1015,8 +1025,8 @@ Do not inline CSS code when generating HTML exports. Instead, the CSS of the cho
 </div>
 </div>
 </div>
-<div id="outline-container-orgd2097f8" class="outline-2">
-<h2 id="orgd2097f8"><span class="section-number-2">12</span> Attachments</h2>
+<div id="outline-container-orgc9c69f2" class="outline-2">
+<h2 id="orgc9c69f2"><span class="section-number-2">12</span> Attachments</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 Org download should use the attachment features to save the images.
@@ -1028,8 +1038,8 @@ Org download should use the attachment features to save the images.
 </div>
 </div>
 </div>
-<div id="outline-container-org708cc99" class="outline-2">
-<h2 id="org708cc99"><span class="section-number-2">13</span> Encryption</h2>
+<div id="outline-container-org2acd996" class="outline-2">
+<h2 id="org2acd996"><span class="section-number-2">13</span> Encryption</h2>
 <div class="outline-text-2" id="text-13">
 <p>
 The package <code>org-crypt</code> allows to encrypt subtrees using <code>GPG</code>.
@@ -1100,8 +1110,8 @@ Add keybindings for encrypting and decrypting a subtree.
 </div>
 </div>
 
-<div id="outline-container-orgba74f2f" class="outline-2">
-<h2 id="orgba74f2f"><span class="section-number-2">14</span> Misc Keybindings</h2>
+<div id="outline-container-orgda293c7" class="outline-2">
+<h2 id="orgda293c7"><span class="section-number-2">14</span> Misc Keybindings</h2>
 <div class="outline-text-2" id="text-14">
 <p>
 Allows to change the <code>TODO</code> state of a task via <code>, k</code>.
@@ -1124,8 +1134,8 @@ Adds <a href="https://github.com/unhammer/org-rich-yank">org-rich-yank</a>.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb8e8aa5" class="outline-2">
-<h2 id="orgb8e8aa5"><span class="section-number-2">15</span> Finalization</h2>
+<div id="outline-container-org9684b8a" class="outline-2">
+<h2 id="org9684b8a"><span class="section-number-2">15</span> Finalization</h2>
 <div class="outline-text-2" id="text-15">
 <p>
 In the end, satisfy the Spacemacs loading mechanism.
@@ -1138,12 +1148,12 @@ In the end, satisfy the Spacemacs loading mechanism.
 </div>
 </div>
 
-<div id="outline-container-org35bdc43" class="outline-2">
-<h2 id="org35bdc43"><span class="section-number-2">16</span> Links</h2>
+<div id="outline-container-orgbcad25c" class="outline-2">
+<h2 id="orgbcad25c"><span class="section-number-2">16</span> Links</h2>
 <div class="outline-text-2" id="text-16">
 </div>
-<div id="outline-container-orgc59546e" class="outline-3">
-<h3 id="orgc59546e"><span class="section-number-3">16.1</span> Inspiration</h3>
+<div id="outline-container-org0706a7f" class="outline-3">
+<h3 id="org0706a7f"><span class="section-number-3">16.1</span> Inspiration</h3>
 <div class="outline-text-3" id="text-16-1">
 <ul class="org-ul">
 <li><a href="https://github.com/larstvei/dot-emacs/blob/master/init.org">larstvei's dot-emacs/init.org</a></li>
@@ -1155,8 +1165,8 @@ In the end, satisfy the Spacemacs loading mechanism.
 </div>
 </div>
 
-<div id="outline-container-org4edafde" class="outline-3">
-<h3 id="org4edafde"><span class="section-number-3">16.2</span> Resources</h3>
+<div id="outline-container-org5cdde09" class="outline-3">
+<h3 id="org5cdde09"><span class="section-number-3">16.2</span> Resources</h3>
 <div class="outline-text-3" id="text-16-2">
 <ul class="org-ul">
 <li><a href="http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html">Introduction to Literate Programming</a></li>
@@ -1168,7 +1178,7 @@ In the end, satisfy the Spacemacs loading mechanism.
 
 <hr />
 
-<p><a href="./my-org-config.org">View Org Source</a></p>
+<p><a href="https://github.com/fabrik42/.spacemacs.d/tree/master/config/my-org-config.org">View Org Source</a></p>
 
 <p><a href="./index.html">Back to Index</a></p>
 </div>
@@ -1177,7 +1187,7 @@ In the end, satisfy the Spacemacs loading mechanism.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Christian Bäuerlein</p>
-<p class="date">Created: 2019-08-05 Mon 14:44</p>
+<p class="date">Created: 2019-12-22 Sun 20:46</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
