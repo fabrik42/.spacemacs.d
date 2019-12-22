@@ -5,7 +5,7 @@
 (let* (
        (path (file-name-nondirectory (buffer-file-name)))
 )
-    (format "<p><a href=\"./%s\">%s</a></p>" path "View Org Source")
+    (format "<p><a href=\"https://github.com/fabrik42/.spacemacs.d/tree/master/config/%s\">%s</a></p>" path "View Org Source")
 )
 #+END_SRC
 
