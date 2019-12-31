@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: Insert new contact, meant for SCM files
+# key: cont
+# --
+* WAIT $0
+DEADLINE: <`(format-time-string "%Y-%m-%d %a")` +1m/3m>
+:PROPERTIES:
+:CREATED: [`(format-time-string "%Y-%m-%d %a %H:%M")`]
+:STYLE: habit
+:LOGGING: WAIT(@) logrepeat
+:REPEAT_TO_STATE: WAIT
+:END:
+:LOGBOOK:
+:END:
