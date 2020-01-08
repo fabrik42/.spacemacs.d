@@ -39,10 +39,8 @@
 
   (variable-pitch-mode 1)
 
-  ;; (turn-on-olivetti-mode)
-  ;; (with-eval-after-load 'olivetti
-  ;;   (olivetti-set-width 81)
-  ;;   (olivetti-mode 1))
+  (require 'olivetti)
+  (olivetti-mode)
   )
 
 (add-hook 'org-mode-hook 'my-org-config/after-org-mode-load)
@@ -465,6 +463,15 @@
 ;; [[file:~/.spacemacs.d/config/my-org-config.org::*Appearance][Appearance:9]]
 (setq org-tags-column 0)
 ;; Appearance:9 ends here
+
+
+
+;; Set a wider body witdh for =olivetti-mode=.
+
+
+;; [[file:~/.spacemacs.d/config/my-org-config.org::*Appearance][Appearance:10]]
+(setq olivetti-body-width 81)
+;; Appearance:10 ends here
 
 ;; Faces
 ;; Faces for =TODO= states. The colors are based on the [[https://github.com/dracula/emacs][Dracula theme for Emacs]].
