@@ -45,7 +45,7 @@ This function should only modify configuration layer settings."
                       auto-completion-private-snippets-directory "~/.spacemacs.d/yasnippets"
       )
      ;; deft
-     elixir
+     (elixir :variables elixir-backend 'alchemist)
      emacs-lisp
      ;; elm
      ;; emoji
@@ -68,6 +68,7 @@ This function should only modify configuration layer settings."
           org-enable-github-support t
           org-enable-reveal-js-support t)
      (plantuml :variables plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.3/libexec/plantuml.jar")
+     phoenix
      python
      react
      restclient
