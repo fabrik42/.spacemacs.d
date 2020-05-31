@@ -30,6 +30,16 @@ Enable line wrapping
 #+BEGIN_SRC emacs-lisp
 (setq truncate-lines nil)
 #+END_SRC
+
+Enable [[https://github.com/dacap/keyfreq][key frequency]] tracking
+
+#+BEGIN_SRC emacs-lisp
+(setq truncate-lines nil)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+(setq keyfreq-excluded-commands
+      '(self-insert-command))
+#+END_SRC
 * Appearance
 Clean up spaceline contents.
 
@@ -40,6 +50,17 @@ Clean up spaceline contents.
 #+END_SRC
 
 * Major Mode Settings
+** LSP
+Disable documentation overlays, use =, h h= instead.
+
+#+begin_src emacs-lisp
+(setq lsp-ui-doc-enable nil)
+#+end_src
+
+Disable file watches, as many folders will slow Emacs down.
+#+begin_src emacs-lisp
+(setq lsp-enable-file-watchers nil)
+#+end_src
 ** Ruby
 Don't automatically insert the magic encoding comment.
 
@@ -60,17 +81,36 @@ Underscore should be a word delimiter in slim.
 (add-hook 'slim-mode-hook #'(lambda () (modify-syntax-entry ?_ "_")))
 #+END_SRC
 ** Elixir
-Better formatting for test output buffers.
-
-#+BEGIN_SRC emacs-lisp
-(setq alchemist-test-truncate-lines nil)
-#+END_SRC
-
 Call elixir-format before save.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'elixir-mode-hook
           (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
+#+END_SRC
+
+Keybindings for [[https://github.com/ananthakumaran/exunit.el][Emacs ExUnit test runner]].
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'elixir-mode
+  (spacemacs/declare-prefix-for-mode 'elixir-mode
+    "mt" "tests" "testing related functionality")
+  (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
+    "ta" 'exunit-verify-all
+    "tb" 'exunit-verify
+    "tr" 'exunit-rerun
+    "tt" 'exunit-verify-single))
+#+END_SRC
+
+[[https://elixirforum.com/t/emacs-elixir-setup-configuration-wiki/19196][Pin the exunit window to the bottom]].
+
+#+BEGIN_SRC emacs-lisp
+(push '("*exunit-compilation*"
+        :dedicated t
+        :position bottom
+        :stick t
+        :height 0.4
+        :noselect t)
+      popwin:special-display-config)
 #+END_SRC
 ** Go
 Set tab width to 4.

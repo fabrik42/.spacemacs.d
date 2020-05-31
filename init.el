@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layer-path '() ;;'("~/.spacemacs.d/layers/")
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(typescript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -45,7 +45,7 @@ This function should only modify configuration layer settings."
                       auto-completion-private-snippets-directory "~/.spacemacs.d/yasnippets"
       )
      ;; deft
-     (elixir :variables elixir-backend 'alchemist)
+     (elixir :variables elixir-backend 'lsp elixir-ls-path "/Users/fabrik42/dev/system/elixir-ls/release")
      emacs-lisp
      ;; elm
      ;; emoji
@@ -101,6 +101,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
                                       exec-path-from-shell
+                                      exunit
                                       dracula-theme
                                       splitjoin
                                       rainbow-mode
@@ -110,6 +111,8 @@ This function should only modify configuration layer settings."
                                       olivetti
                                       nodejs-repl
                                       org-rich-yank
+                                      keyfreq
+                                      treemacs
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -615,7 +618,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (dap-mode bui tree-mode lsp-python-ms python toml-mode racer lv flycheck-rust lsp-mode cargo rust-mode org-rich-yank org-gcal request-deferred oauth2 org-caldav github-review yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org tagedit symon string-inflection sql-indent splitjoin spaceline-all-the-icons smeargle slim-mode shell-pop seeing-is-believing scss-mode sass-mode ruby-tools ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rjsx-mode restclient-helm restart-emacs rake rainbow-mode rainbow-delimiters pyvenv pytest pyenv-mode py-isort prettier-js popwin plantuml-mode pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox ox-reveal overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file olivetti ob-restclient ob-http nameless multi-term move-text mmm-mode markdown-toc magithub magit-svn magit-gitflow macrostep lorem-ipsum live-py-mode link-hint json-navigator json-mode js-doc indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-auto-commit-mode gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-mix flycheck-credo flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl cython-mode counsel-projectile company-web company-tern company-statistics company-restclient company-go company-anaconda column-enforce-mode clean-aindent-mode centered-cursor-mode bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent ace-link ace-jump-helm-line ac-ispell)))
+    (exunit tide typescript-mode import-js grizzl emmet-mode add-node-modules-path keyfreq org-tfl dap-mode bui tree-mode lsp-python-ms python toml-mode racer lv flycheck-rust lsp-mode cargo rust-mode org-rich-yank org-gcal request-deferred oauth2 org-caldav github-review yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org tagedit symon string-inflection sql-indent splitjoin spaceline-all-the-icons smeargle slim-mode shell-pop seeing-is-believing scss-mode sass-mode ruby-tools ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rjsx-mode restclient-helm restart-emacs rake rainbow-mode rainbow-delimiters pyvenv pytest pyenv-mode py-isort prettier-js popwin plantuml-mode pippel pipenv pip-requirements persp-mode pcre2el password-generator paradox ox-reveal overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file olivetti ob-restclient ob-http nameless multi-term move-text mmm-mode markdown-toc magithub magit-svn magit-gitflow macrostep lorem-ipsum live-py-mode link-hint json-navigator json-mode js-doc indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-auto-commit-mode gist gh-md fuzzy forge font-lock+ flycheck-pos-tip flycheck-mix flycheck-credo flx-ido fill-column-indicator eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav editorconfig dumb-jump dracula-theme dotenv-mode doom-modeline diminish diff-hl cython-mode counsel-projectile company-web company-tern company-statistics company-restclient company-go company-anaconda column-enforce-mode clean-aindent-mode centered-cursor-mode bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent ace-link ace-jump-helm-line ac-ispell)))
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

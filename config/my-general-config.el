@@ -33,6 +33,19 @@
 (setq truncate-lines nil)
 ;; General:4 ends here
 
+
+
+;; Enable [[https://github.com/dacap/keyfreq][key frequency]] tracking
+
+
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*General][General:5]]
+(setq truncate-lines nil)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+(setq keyfreq-excluded-commands
+      '(self-insert-command))
+;; General:5 ends here
+
 ;; Appearance
 ;; Clean up spaceline contents.
 
@@ -42,6 +55,22 @@
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-buffer-size-off))
 ;; Appearance:1 ends here
+
+;; LSP
+;; Disable documentation overlays, use =, h h= instead.
+
+
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*LSP][LSP:1]]
+(setq lsp-ui-doc-enable nil)
+;; LSP:1 ends here
+
+
+
+;; Disable file watches, as many folders will slow Emacs down.
+
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*LSP][LSP:2]]
+(setq lsp-enable-file-watchers nil)
+;; LSP:2 ends here
 
 ;; Ruby
 ;; Don't automatically insert the magic encoding comment.
@@ -71,22 +100,44 @@
 ;; Ruby:3 ends here
 
 ;; Elixir
-;; Better formatting for test output buffers.
+;; Call elixir-format before save.
 
 
 ;; [[file:~/.spacemacs.d/config/my-general-config.org::*Elixir][Elixir:1]]
-(setq alchemist-test-truncate-lines nil)
+(add-hook 'elixir-mode-hook
+          (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
 ;; Elixir:1 ends here
 
 
 
-;; Call elixir-format before save.
+;; Keybindings for [[https://github.com/ananthakumaran/exunit.el][Emacs ExUnit test runner]].
 
 
 ;; [[file:~/.spacemacs.d/config/my-general-config.org::*Elixir][Elixir:2]]
-(add-hook 'elixir-mode-hook
-          (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
+(with-eval-after-load 'elixir-mode
+  (spacemacs/declare-prefix-for-mode 'elixir-mode
+    "mt" "tests" "testing related functionality")
+  (spacemacs/set-leader-keys-for-major-mode 'elixir-mode
+    "ta" 'exunit-verify-all
+    "tb" 'exunit-verify
+    "tr" 'exunit-rerun
+    "tt" 'exunit-verify-single))
 ;; Elixir:2 ends here
+
+
+
+;; [[https://elixirforum.com/t/emacs-elixir-setup-configuration-wiki/19196][Pin the exunit window to the bottom]].
+
+
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*Elixir][Elixir:3]]
+(push '("*exunit-compilation*"
+        :dedicated t
+        :position bottom
+        :stick t
+        :height 0.4
+        :noselect t)
+      popwin:special-display-config)
+;; Elixir:3 ends here
 
 ;; Go
 ;; Set tab width to 4.
@@ -119,7 +170,7 @@
 ;; Intendation settings
 
 
-;; [[file:~/.spacemacs.d/config/my-general-config.org::*Web%20Mode][Web Mode:1]]
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*Web Mode][Web Mode:1]]
 (setq web-mode-css-indent-offset 2)
 (setq js2-basic-offset 2)
 (setq web-mode-markup-indent-offset 2)
@@ -332,7 +383,7 @@
 ;; This function switches between the German and the English translation file in a Rails project. Especially handy, if the project has a lot of files per language.
 
 
-;; [[file:~/.spacemacs.d/config/my-general-config.org::*Switch%20between%20Rails%20i18n%20files][Switch between Rails i18n files:1]]
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*Switch between Rails i18n files][Switch between Rails i18n files:1]]
 (defun switch-rails-i18n-file()
   "Switches to the i18n file in the other language"
   (interactive)
