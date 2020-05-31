@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: 1on1 Meeting
+# key: 1on1
+# --
+* UPCOMING 1on1 [`(format-time-string "%Y-%m-%d %a")`] [/]
+:PROPERTIES:
+:CREATED: [`(format-time-string "%Y-%m-%d %a %H:%M")`]
+:END:
+- [ ] $0

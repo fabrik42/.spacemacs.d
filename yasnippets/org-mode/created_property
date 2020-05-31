@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Insert created property
+# key: cc
+# --
+:PROPERTIES:
+:CREATED: [`(format-time-string "%Y-%m-%d %a %H:%M")`]
+:END:
