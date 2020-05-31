@@ -46,7 +46,7 @@ Right now, all my TODO-related files include the same task states, defined in a 
   task -- state6
 #+END_SRC
 #+ATTR_ORG: :width 500
-#+RESULTS[bca6d78b8f64ccc13393621292af6ab5b3ec1fbb]:
+#+RESULTS[334b57729bef6827a41e39a35cd181b0e65c1f97]:
 [[file:images/task_states.png]]
 
 
