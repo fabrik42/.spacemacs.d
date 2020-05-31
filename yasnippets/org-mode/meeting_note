@@ -1,6 +1,9 @@
 # -*- mode: snippet -*-
-# name: Meeting Meeting
+# name: Meeting
 # key: mm
 # --
-* Meeting `(format-time-string "%Y-%m-%d")` [/]
+* Meeting [`(format-time-string "%Y-%m-%d %a")`] [/]
+:PROPERTIES:
+:CREATED: [`(format-time-string "%Y-%m-%d %a %H:%M")`]
+:END:
 - [ ] $0
