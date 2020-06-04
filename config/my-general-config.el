@@ -56,6 +56,14 @@
   (spaceline-toggle-buffer-size-off))
 ;; Appearance:1 ends here
 
+;; Magit
+;; Enable [[https://github.com/dandavison/magit-delta][magit-delta when viewing diffs in Magit]]
+
+
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*Magit][Magit:1]]
+(magit-delta-mode)
+;; Magit:1 ends here
+
 ;; LSP
 ;; Disable documentation overlays, use =, h h= instead.
 

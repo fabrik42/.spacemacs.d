@@ -50,6 +50,12 @@ Clean up spaceline contents.
 #+END_SRC
 
 * Major Mode Settings
+** Magit
+Enable [[https://github.com/dandavison/magit-delta][magit-delta when viewing diffs in Magit]]
+
+#+begin_src emacs-lisp
+(magit-delta-mode)
+#+end_src
 ** LSP
 Disable documentation overlays, use =, h h= instead.
 
