@@ -401,6 +401,34 @@
   )
 ;; Switch between Rails i18n files:1 ends here
 
+;; Exercism
+;; Submits the current buffer to exercism and opens a temp buffer with the output and some additional information like the URL of the current practice.
+
+
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*Exercism][Exercism:1]]
+(defun exercism-submit ()
+  (interactive)
+  (with-output-to-temp-buffer "*exercism*"
+    (princ(shell-command-to-string (concat "exercism submit " (buffer-file-name))))
+    )
+  (pop-to-buffer "*exercism*"))
+;; Exercism:1 ends here
+
+
+
+;; Fix the result buffer to the bottom and allow to close it with =ctrl-g=.
+
+
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*Exercism][Exercism:2]]
+(push '("*exercism*"
+        :dedicated t
+        :position bottom
+        :stick t
+        :height 0.4
+        :noselect t)
+      popwin:special-display-config)
+;; Exercism:2 ends here
+
 ;; Finalization
 ;; In the end, satisfy the Spacemacs loading mechanism.
 

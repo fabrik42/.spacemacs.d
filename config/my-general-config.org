@@ -327,6 +327,29 @@ This function switches between the German and the English translation file in a 
     (find-file (replace-regexp-in-string "/en/" "/de/" (buffer-file-name))))
   )
 #+END_SRC
+** Exercism
+Submits the current buffer to exercism and opens a temp buffer with the output and some additional information like the URL of the current practice.
+
+#+begin_src emacs-lisp
+(defun exercism-submit ()
+  (interactive)
+  (with-output-to-temp-buffer "*exercism*"
+    (princ(shell-command-to-string (concat "exercism submit " (buffer-file-name))))
+    )
+  (pop-to-buffer "*exercism*"))
+#+end_src
+
+Fix the result buffer to the bottom and allow to close it with =ctrl-g=.
+
+#+begin_src emacs-lisp
+(push '("*exercism*"
+        :dedicated t
+        :position bottom
+        :stick t
+        :height 0.4
+        :noselect t)
+      popwin:special-display-config)
+#+end_src
 * Finalization
 In the end, satisfy the Spacemacs loading mechanism.
 
