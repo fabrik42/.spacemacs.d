@@ -168,6 +168,12 @@ Setup [[https://github.com/abicky/nodejs-repl.el][nodejs-repl.el]] keybindings.
 (spacemacs/set-leader-keys-for-major-mode 'js2-mode "n'" 'nodejs-repl-switch-to-repl)
 (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ns" 'nodejs-repl-switch-to-repl)
 #+END_SRC
+** TypeScript
+Set [[https://github.com/emacs-typescript/typescript.el/blob/master/typescript-mode.el#L635-L640][indentation level]] to two spaces.
+
+#+begin_src emacs-lisp
+(setq typescript-indent-level 2)
+#+end_src
 ** SQL
 The =sqlfmt= does not work very well with Postgres and is also outdated.
 This uses [[https://github.com/darold/pgFormatter][pgFormatter]] instead, installed with =brew install pgformatter=.

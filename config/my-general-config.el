@@ -211,6 +211,12 @@
 (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ns" 'nodejs-repl-switch-to-repl)
 ;; JavaScript:2 ends here
 
+;; TypeScript
+
+;; [[file:~/.spacemacs.d/config/my-general-config.org::*TypeScript][TypeScript:1]]
+(setq typescript-indent-level 2)
+;; TypeScript:1 ends here
+
 ;; SQL
 ;; The =sqlfmt= does not work very well with Postgres and is also outdated.
 ;; This uses [[https://github.com/darold/pgFormatter][pgFormatter]] instead, installed with =brew install pgformatter=.
