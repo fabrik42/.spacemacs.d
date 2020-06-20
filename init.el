@@ -71,7 +71,9 @@ This function should only modify configuration layer settings."
      (org :variables
           org-enable-github-support t
           org-enable-reveal-js-support t)
-     (plantuml :variables plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.3/libexec/plantuml.jar")
+     (plantuml :variables
+               plantuml-default-exec-mode 'jar
+               plantuml-jar-path "/usr/local/Cellar/plantuml/1.2020.13/libexec/plantuml.jar")
      phoenix
      python
      react
