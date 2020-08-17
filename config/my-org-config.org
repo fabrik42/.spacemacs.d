@@ -354,6 +354,7 @@ Custom agenda commands used to generate my agenda views.
                                           ))
               (org-super-agenda-groups
                '(
+                 (:name "🌆 End of day" :todo "ENDOFDAY")
                  (:name "Inbox" :tag "inbox")
                  (:name "Verify" :todo "VERIFY")
                  (:discard (:anything t))
@@ -528,6 +529,10 @@ Faces for =TODO= states. The colors are based on the [[https://github.com/dracul
                               `("VERIFY"
                                 ,@fixed-pitch-font
                                 :foreground ,rainbow-7
+                                :weight bold)
+                              `("ENDOFDAY"
+                                ,@fixed-pitch-font
+                                :foreground ,rainbow-3
                                 :weight bold)
                               `("LOWPRIO"
                                 ,@fixed-pitch-font
