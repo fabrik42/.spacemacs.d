@@ -449,11 +449,11 @@
 
 
 
-;; Set bullet glyphs for Org headings.
+;; Set bullet glyphs for Org headings via [[https://github.com/integral-dw/org-superstar-mode#org-superstar-headline-bullets-list][org-superstar-mode]].
 
 
 ;; [[file:my-org-config.org::*Appearance][Appearance:8]]
-(setq org-bullets-bullet-list '("⬢" "◆" "▲" "■"))
+(setq org-superstar-headline-bullets-list '("⬢" "◆" "▲" "■"))
 ;; Appearance:8 ends here
 
 

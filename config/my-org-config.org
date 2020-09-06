@@ -473,10 +473,10 @@ Add a special face to =#+begin_quote= and =#+begin_verse= block.
 (setq org-fontify-quote-and-verse-blocks t)
 #+END_SRC
 
-Set bullet glyphs for Org headings.
+Set bullet glyphs for Org headings via [[https://github.com/integral-dw/org-superstar-mode#org-superstar-headline-bullets-list][org-superstar-mode]].
 
 #+BEGIN_SRC emacs-lisp
-(setq org-bullets-bullet-list '("⬢" "◆" "▲" "■"))
+(setq org-superstar-headline-bullets-list '("⬢" "◆" "▲" "■"))
 #+END_SRC
 
 Show tags directly after headings (not on the right), which plays nicer with line-wrapping.
