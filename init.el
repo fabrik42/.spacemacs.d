@@ -119,7 +119,6 @@ This function should only modify configuration layer settings."
                                       nodejs-repl
                                       org-rich-yank
                                       keyfreq
-                                      treemacs
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -152,6 +151,9 @@ This function should only modify configuration layer settings."
 
                                     evil-escape       ;; not used
                                     golden-ratio      ;; not used
+
+                                    treemacs             ;; global?
+                                    treemacs-icons-dired ;; dired
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
