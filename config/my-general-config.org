@@ -56,6 +56,12 @@ Enable [[https://github.com/dandavison/magit-delta][magit-delta when viewing dif
 #+begin_src emacs-lisp
 (magit-delta-mode)
 #+end_src
+
+Add ioki-github.com to browsable URLs
+
+#+begin_src emacs-lisp
+(add-to-list 'browse-at-remote-remote-type-domains '("ioki-github.com" . "github"))
+#+end_src
 ** LSP
 Disable documentation overlays, use =, h h= instead.
 
@@ -123,6 +129,7 @@ Set tab width to 4.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default tab-width 4)
+(setq-default go-tab-width 4)
 #+END_SRC
 
 Call go-format before save.

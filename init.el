@@ -75,7 +75,9 @@ This function should only modify configuration layer settings."
                plantuml-default-exec-mode 'jar
                plantuml-jar-path "/usr/local/Cellar/plantuml/1.2020.13/libexec/plantuml.jar")
      phoenix
-     python
+     (python :variables
+             python-formatter 'lsp
+             python-format-on-save t)
      react
      restclient
      (ruby :variables
@@ -112,6 +114,7 @@ This function should only modify configuration layer settings."
                                       rainbow-mode
                                       magit-delta
                                       literate-calc-mode
+                                      git-link
                                       ;; org-cliplink
                                       org-super-agenda
                                       git-auto-commit-mode
