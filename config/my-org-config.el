@@ -149,7 +149,7 @@
 
 
 ;; #+ATTR_ORG: :width 500
-;; #+RESULTS[a7f7c25837820dc1335565c4b8e0b6341e84f873]:
+;; #+RESULTS[de0d1f75a775b1231b73bb3cc21a48169d241f63]:
 ;; [[file:images/file_setup.png]]
 
 ;; I use a general inbox file to collect all new tasks on the run and will batch-schedule/refile them a couple times a day.

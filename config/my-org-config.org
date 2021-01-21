@@ -33,20 +33,28 @@ Right now, all my TODO-related files include the same task states, defined in a 
    NEXT
   ]
   node state5 [
-    CANCELLED
+   ENDOFDAY
   ]
   node state6 [
+    CANCELLED
+  ]
+  node state7 [
+    DELEGATED
+  ]
+  node state8 [
     DONE
   ]
   task .. state1
   task .. state2
   task .. state3
   task .. state4
-  task -- state5
+  task .. state5
   task -- state6
+  task -- state7
+  task -- state8
 #+END_SRC
 #+ATTR_ORG: :width 500
-#+RESULTS[334b57729bef6827a41e39a35cd181b0e65c1f97]:
+#+RESULTS[036beea9622b7984fd52a09e5c3d75712b2daa01]:
 [[file:images/task_states.png]]
 
 
@@ -201,7 +209,7 @@ Not sure how much sense this makes, as I want the selected file to be opened in 
   [Tasks] .> [Archive] : Archive
 #+END_SRC
 #+ATTR_ORG: :width 500
-#+RESULTS[a7f7c25837820dc1335565c4b8e0b6341e84f873]:
+#+RESULTS[de0d1f75a775b1231b73bb3cc21a48169d241f63]:
 [[file:images/file_setup.png]]
 
 I use a general inbox file to collect all new tasks on the run and will batch-schedule/refile them a couple times a day.

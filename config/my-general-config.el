@@ -70,7 +70,7 @@
 
 
 ;; [[file:my-general-config.org::*Magit][Magit:2]]
-(add-to-list 'browse-at-remote-remote-type-domains '("ioki-github.com" . "github"))
+;; (add-to-list 'browse-at-remote-remote-type-domains '("ioki-github.com" . "github"))
 ;; Magit:2 ends here
 
 ;; LSP
