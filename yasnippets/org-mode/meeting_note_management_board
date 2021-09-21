@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: Meeting Note Management Board
+# key: mmb
+# --
+* Meeting [`(format-time-string "%Y-%m-%d %a")`] [/]
+:PROPERTIES:
+:CREATED: [`(format-time-string "%Y-%m-%d %a %H:%M")`]
+:END:
+- [ ] $0
+
+** Stream Updates
+- ...
+** Topic 1
+- ...
