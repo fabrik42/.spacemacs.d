@@ -106,30 +106,56 @@
 
 
 
-;; Call =org-capture= with =SPC o c=.
+;; Add a new feedback note entry with preselected template with =SPC o f=.
 
 
 ;; [[file:my-org-config.org::*Quick Access][Quick Access:4]]
-(spacemacs/set-leader-keys "oc" 'org-capture)
+(defun my-org-add-feedback ()
+  (interactive)
+  (org-capture nil "f")
+  )
+(spacemacs/set-leader-keys "of" 'my-org-add-feedback)
 ;; Quick Access:4 ends here
+
+
+
+;; Add a new notable change/fact entry with preselected template with =SPC o n=.
+
+
+;; [[file:my-org-config.org::*Quick Access][Quick Access:5]]
+(defun my-org-add-to-changelog ()
+  (interactive)
+  (org-capture nil "n")
+  )
+(spacemacs/set-leader-keys "on" 'my-org-add-to-changelog)
+;; Quick Access:5 ends here
+
+
+
+;; Call =org-capture= with =SPC o c=.
+
+
+;; [[file:my-org-config.org::*Quick Access][Quick Access:6]]
+(spacemacs/set-leader-keys "oc" 'org-capture)
+;; Quick Access:6 ends here
 
 
 
 ;; Call =org-agenda= with =SPC o a=.
 
 
-;; [[file:my-org-config.org::*Quick Access][Quick Access:5]]
+;; [[file:my-org-config.org::*Quick Access][Quick Access:7]]
 (spacemacs/set-leader-keys "oa" 'org-agenda)
-;; Quick Access:5 ends here
+;; Quick Access:7 ends here
 
 
 
 ;; Call =org-store-link= with =SPC o l=.
 
 
-;; [[file:my-org-config.org::*Quick Access][Quick Access:6]]
+;; [[file:my-org-config.org::*Quick Access][Quick Access:8]]
 (spacemacs/set-leader-keys "ol" 'org-store-link)
-;; Quick Access:6 ends here
+;; Quick Access:8 ends here
 
 
 
@@ -138,14 +164,14 @@
 ;; Not sure how much sense this makes, as I want the selected file to be opened in the proper perspective. Also, maybe =org-rifle= makes more sense?
 
 
-;; [[file:my-org-config.org::*Quick Access][Quick Access:7]]
+;; [[file:my-org-config.org::*Quick Access][Quick Access:9]]
 (defun my-org-helm-find-file ()
   (interactive)
   (helm-browse-project-find-files "/Users/fabrik42/org")
   )
 
-(spacemacs/set-leader-keys "of" 'my-org-helm-find-file)
-;; Quick Access:7 ends here
+(spacemacs/set-leader-keys "oj" 'my-org-helm-find-file)
+;; Quick Access:9 ends here
 
 
 ;; #+ATTR_ORG: :width 500
@@ -234,18 +260,18 @@
                                 entry
                                 (file "~/org/inbox.org")
                                 "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
-                              ("d" "Todo w/date [inbox]"
+                              ("n" "Notable change/fact"
                                 entry
-                                (file "~/org/inbox.org")
-                                "* TODO %? %<%Y-%m-%d>\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
+                                (file "~/org/changelog.org")
+                                "* %? \n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
                               ("l" "Link currently stored [inbox]"
                                 entry
                                 (file "~/org/inbox.org")
                                 "* TODO %i%?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\%A\n%i\n")
-                              ("m" "Meeting [inbox]"
+                              ("f" "Feedback note"
                                 entry
-                                (file "~/org/inbox.org")
-                                "* Meeting %<%Y-%m-%d>: %^{prompt}\n:PROPERTIES:\n:CREATED: %U\n:END:\n- [ ] %?\n\n")))
+                                (file "~/org/feedback.org")
+                                "* Feedback for: %^{prompt}\n:PROPERTIES:\n:CREATED: %U\n:END:\n- [ ] %?\n\n")))
 ;; Capture:2 ends here
 
 ;; Agenda
@@ -359,6 +385,7 @@
                      (:name "⭐ Next" :todo "NEXT")
                      (:name "⭐ Important" :priority "A")
                      (:name "📌 Routines" :category "Routines")
+                     (:name "📚 Tickets" :category "Tickets")
      
                      (:auto-category t)
                      ))

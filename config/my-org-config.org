@@ -151,6 +151,26 @@ Add a new todo with preselected template with =SPC o t=.
 (spacemacs/set-leader-keys "ot" 'my-org-add-todo)
 #+END_SRC
 
+Add a new feedback note entry with preselected template with =SPC o f=.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-add-feedback ()
+  (interactive)
+  (org-capture nil "f")
+  )
+(spacemacs/set-leader-keys "of" 'my-org-add-feedback)
+#+END_SRC
+
+Add a new notable change/fact entry with preselected template with =SPC o n=.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-add-to-changelog ()
+  (interactive)
+  (org-capture nil "n")
+  )
+(spacemacs/set-leader-keys "on" 'my-org-add-to-changelog)
+#+END_SRC
+
 Call =org-capture= with =SPC o c=.
 
 #+BEGIN_SRC emacs-lisp
@@ -179,7 +199,7 @@ Not sure how much sense this makes, as I want the selected file to be opened in 
   (helm-browse-project-find-files "/Users/fabrik42/org")
   )
 
-(spacemacs/set-leader-keys "of" 'my-org-helm-find-file)
+(spacemacs/set-leader-keys "oj" 'my-org-helm-find-file)
 #+END_SRC
 * Files
 #+BEGIN_SRC plantuml :file images/file_setup.png :cache yes :tangle no
@@ -273,18 +293,18 @@ These are my custom capture templates.
                                 entry
                                 (file "~/org/inbox.org")
                                 "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
-                              ("d" "Todo w/date [inbox]"
+                              ("n" "Notable change/fact"
                                 entry
-                                (file "~/org/inbox.org")
-                                "* TODO %? %<%Y-%m-%d>\n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
+                                (file "~/org/changelog.org")
+                                "* %? \n:PROPERTIES:\n:CREATED: %U\n:END:\n  %i\n")
                               ("l" "Link currently stored [inbox]"
                                 entry
                                 (file "~/org/inbox.org")
                                 "* TODO %i%?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\%A\n%i\n")
-                              ("m" "Meeting [inbox]"
+                              ("f" "Feedback note"
                                 entry
-                                (file "~/org/inbox.org")
-                                "* Meeting %<%Y-%m-%d>: %^{prompt}\n:PROPERTIES:\n:CREATED: %U\n:END:\n- [ ] %?\n\n")))
+                                (file "~/org/feedback.org")
+                                "* Feedback for: %^{prompt}\n:PROPERTIES:\n:CREATED: %U\n:END:\n- [ ] %?\n\n")))
 #+END_SRC
 * Agenda
 Enable [[https://github.com/alphapapa/org-super-agenda][org-super-agenda]] mode.
@@ -352,6 +372,7 @@ Custom agenda commands used to generate my agenda views.
                 (:name "⭐ Next" :todo "NEXT")
                 (:name "⭐ Important" :priority "A")
                 (:name "📌 Routines" :category "Routines")
+                (:name "📚 Tickets" :category "Tickets")
 
                 (:auto-category t)
                 ))

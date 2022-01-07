@@ -57,20 +57,41 @@
 ;; Appearance:1 ends here
 
 ;; Magit
-;; Enable [[https://github.com/dandavison/magit-delta][magit-delta when viewing diffs in Magit]]
+;; Add ioki-github.com to browsable URLs, therefore also create [[https://github.com/rmuslimov/browse-at-remote/blob/cef26f2c063f2473af42d0e126c8613fe2f709e4/browse-at-remote.el#L254-L264][custom formatters, based on the normal github formatter]].
 
 
 ;; [[file:my-general-config.org::*Magit][Magit:1]]
-(magit-delta-mode)
+(with-eval-after-load 'browse-at-remote
+
+  (add-to-list 'browse-at-remote-remote-type-regexps '("^ioki-github\\.com$" . "ioki-github"))
+
+  (defun browse-at-remote--format-region-url-as-ioki-github (repo-url location filename &optional linestart lineend)
+    "URL formatted for github."
+    (setq repo-url (s-replace "ioki-github" "github" repo-url))
+
+    (cond
+     ((and linestart lineend)
+      (format "%s/blob/%s/%s#L%d-L%d" repo-url location filename linestart lineend))
+     (linestart (format "%s/blob/%s/%s#L%d" repo-url location filename linestart))
+     (t (format "%s/tree/%s/%s" repo-url location filename))))
+
+  (defun browse-at-remote--format-commit-url-as-ioki-github (repo-url commithash)
+    "Commit URL formatted for github"
+    (setq repo-url (s-replace "ioki-github" "github" repo-url))
+    (format "%s/commit/%s" repo-url commithash))
+
+  )
 ;; Magit:1 ends here
 
 
 
-;; Add ioki-github.com to browsable URLs
+;; Enable private Gitlab instance in magit forge
 
 
 ;; [[file:my-general-config.org::*Magit][Magit:2]]
-;; (add-to-list 'browse-at-remote-remote-type-domains '("ioki-github.com" . "github"))
+(with-eval-after-load 'forge
+  (add-to-list 'forge-alist '("gitlab.io.ki" "gitlab.io.ki/api/v4" "gitlab.io.ki" forge-gitlab-repository))
+)
 ;; Magit:2 ends here
 
 ;; LSP
@@ -264,8 +285,8 @@
 
 
 ;; [[file:my-general-config.org::*Movements][Movements:3]]
-(define-key evil-normal-state-map (kbd "C-j") 'move-text-down)
-(define-key evil-normal-state-map (kbd "C-k") 'move-text-up)
+(define-key evil-normal-state-map (kbd "C-j") 'drag-stuff-down)
+(define-key evil-normal-state-map (kbd "C-k") 'drag-stuff-up)
 ;; Movements:3 ends here
 
 

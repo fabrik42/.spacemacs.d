@@ -55,7 +55,8 @@ This function should only modify configuration layer settings."
      ;; emoji
      ;; erlang
      (git :variables
-          git-magit-status-fullscreen t)
+          git-magit-status-fullscreen t
+          git-enable-magit-delta-plugin t)
      github
      go
      helm
@@ -73,7 +74,8 @@ This function should only modify configuration layer settings."
           org-enable-reveal-js-support t)
      (plantuml :variables
                plantuml-default-exec-mode 'jar
-               plantuml-jar-path "/usr/local/Cellar/plantuml/1.2020.13/libexec/plantuml.jar")
+               org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.9/libexec/plantuml.jar"
+               plantuml-jar-path "/usr/local/Cellar/plantuml/1.2021.9/libexec/plantuml.jar")
      phoenix
      (python :variables
              python-formatter 'lsp
@@ -112,7 +114,6 @@ This function should only modify configuration layer settings."
                                       exunit
                                       splitjoin
                                       rainbow-mode
-                                      magit-delta
                                       literate-calc-mode
                                       git-link
                                       ;; org-cliplink

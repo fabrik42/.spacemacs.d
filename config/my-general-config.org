@@ -51,17 +51,39 @@ Clean up spaceline contents.
 
 * Major Mode Settings
 ** Magit
-Enable [[https://github.com/dandavison/magit-delta][magit-delta when viewing diffs in Magit]]
+Add ioki-github.com to browsable URLs, therefore also create [[https://github.com/rmuslimov/browse-at-remote/blob/cef26f2c063f2473af42d0e126c8613fe2f709e4/browse-at-remote.el#L254-L264][custom formatters, based on the normal github formatter]].
 
 #+begin_src emacs-lisp
-(magit-delta-mode)
+(with-eval-after-load 'browse-at-remote
+
+  (add-to-list 'browse-at-remote-remote-type-regexps '("^ioki-github\\.com$" . "ioki-github"))
+
+  (defun browse-at-remote--format-region-url-as-ioki-github (repo-url location filename &optional linestart lineend)
+    "URL formatted for github."
+    (setq repo-url (s-replace "ioki-github" "github" repo-url))
+
+    (cond
+     ((and linestart lineend)
+      (format "%s/blob/%s/%s#L%d-L%d" repo-url location filename linestart lineend))
+     (linestart (format "%s/blob/%s/%s#L%d" repo-url location filename linestart))
+     (t (format "%s/tree/%s/%s" repo-url location filename))))
+
+  (defun browse-at-remote--format-commit-url-as-ioki-github (repo-url commithash)
+    "Commit URL formatted for github"
+    (setq repo-url (s-replace "ioki-github" "github" repo-url))
+    (format "%s/commit/%s" repo-url commithash))
+
+  )
 #+end_src
 
-Add ioki-github.com to browsable URLs
+Enable private Gitlab instance in magit forge
 
 #+begin_src emacs-lisp
-(add-to-list 'browse-at-remote-remote-type-domains '("ioki-github.com" . "github"))
+(with-eval-after-load 'forge
+  (add-to-list 'forge-alist '("gitlab.io.ki" "gitlab.io.ki/api/v4" "gitlab.io.ki" forge-gitlab-repository))
+)
 #+end_src
+
 ** LSP
 Disable documentation overlays, use =, h h= instead.
 
@@ -208,8 +230,8 @@ Also in visual mode...
 Move line under cursor with =C-j/k=.
 
 #+BEGIN_SRC emacs-lisp
-(define-key evil-normal-state-map (kbd "C-j") 'move-text-down)
-(define-key evil-normal-state-map (kbd "C-k") 'move-text-up)
+(define-key evil-normal-state-map (kbd "C-j") 'drag-stuff-down)
+(define-key evil-normal-state-map (kbd "C-k") 'drag-stuff-up)
 #+END_SRC
 
 Pressing =H= in any edit mode moves the cursor to the first non-blank character.
