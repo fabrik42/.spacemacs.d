@@ -1,50 +1,59 @@
 ;; General
-;; Hitting TAB always just indents the current line.
+;; Setting the default directory to my user home.
 
 
 ;; [[file:my-general-config.org::*General][General:1]]
-(setq tab-always-indent t)
+(setq default-directory "~/")
 ;; General:1 ends here
+
+
+
+;; Hitting TAB always just indents the current line.
+
+
+;; [[file:my-general-config.org::*General][General:2]]
+(setq tab-always-indent t)
+;; General:2 ends here
 
 
 
 ;; Only one auth source for magit & co.
 
 
-;; [[file:my-general-config.org::*General][General:2]]
+;; [[file:my-general-config.org::*General][General:3]]
 (setq auth-sources '("~/.netrc"))
-;; General:2 ends here
+;; General:3 ends here
 
 
 
 ;; Utf-8
 
 
-;; [[file:my-general-config.org::*General][General:3]]
+;; [[file:my-general-config.org::*General][General:4]]
 (prefer-coding-system 'utf-8)
-;; General:3 ends here
+;; General:4 ends here
 
 
 
 ;; Enable line wrapping
 
 
-;; [[file:my-general-config.org::*General][General:4]]
+;; [[file:my-general-config.org::*General][General:5]]
 (setq truncate-lines nil)
-;; General:4 ends here
+;; General:5 ends here
 
 
 
 ;; Enable [[https://github.com/dacap/keyfreq][key frequency]] tracking
 
 
-;; [[file:my-general-config.org::*General][General:5]]
-(setq truncate-lines nil)
-(keyfreq-mode 1)
-(keyfreq-autosave-mode 1)
-(setq keyfreq-excluded-commands
-      '(self-insert-command))
-;; General:5 ends here
+;; [[file:my-general-config.org::*General][General:6]]
+;; (setq truncate-lines nil)
+;; (keyfreq-mode 1)
+;; (keyfreq-autosave-mode 1)
+;; (setq keyfreq-excluded-commands
+;;       '(self-insert-command))
+;; General:6 ends here
 
 ;; Appearance
 ;; Clean up spaceline contents.
@@ -58,6 +67,8 @@
 
 ;; Magit
 ;; Add ioki-github.com to browsable URLs, therefore also create [[https://github.com/rmuslimov/browse-at-remote/blob/cef26f2c063f2473af42d0e126c8613fe2f709e4/browse-at-remote.el#L254-L264][custom formatters, based on the normal github formatter]].
+
+;; This allows to visit links via SPC g o
 
 
 ;; [[file:my-general-config.org::*Magit][Magit:1]]
@@ -93,6 +104,12 @@
   (add-to-list 'forge-alist '("gitlab.io.ki" "gitlab.io.ki/api/v4" "gitlab.io.ki" forge-gitlab-repository))
 )
 ;; Magit:2 ends here
+
+;; [[file:my-general-config.org::*Magit][Magit:3]]
+(with-eval-after-load 'browse-at-remote
+  (add-to-list 'browse-at-remote-remote-type-regexps '("^gitlab\\.io\\.ki$" . "gitlab"))
+  )
+;; Magit:3 ends here
 
 ;; LSP
 ;; Disable documentation overlays, use =, h h= instead.

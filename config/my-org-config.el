@@ -375,6 +375,7 @@
                    '(
                      (:name "⏰ Calendar" :time-grid t)
                      (:name "Optional" :priority "C" :order 90)
+                     (:name "📚 Tickets" :category "Tickets" :order 80)
      
                      (:name "⚠ Overdue!" :deadline past)
                      (:name "⚠ Overdue!" :scheduled past)
@@ -385,7 +386,6 @@
                      (:name "⭐ Next" :todo "NEXT")
                      (:name "⭐ Important" :priority "A")
                      (:name "📌 Routines" :category "Routines")
-                     (:name "📚 Tickets" :category "Tickets")
      
                      (:auto-category t)
                      ))
@@ -603,17 +603,28 @@
                                 (emacs-lisp . t)
                                 (ruby . t)
                                 (js . t)
+                                (jq . t)
+                                (mermaid . t)
                                 (plantuml . t)))
 ;; Babel:4 ends here
 
 
 
-;; PlantUML Settings for generating diagrams. It needs to know the path to the installed PlantUML =jar=, in this case installed via =homebrew=, so this path is available by calling =brew info plantuml=.
+;; PlantUML settings for generating diagrams. It needs to know the path to the installed PlantUML =jar=, in this case installed via =homebrew=, so this path is available by calling =brew info plantuml=.
 
 
 ;; [[file:my-org-config.org::*Babel][Babel:5]]
 (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2018.3/libexec/plantuml.jar")
 ;; Babel:5 ends here
+
+
+
+;; Mermaid settings for generating diagrams. It needs to know the path to the installed  =mermaid cli=, in this case installed via =homebrew=, so this path is available by calling =brew info mermaid-cli=.
+
+
+;; [[file:my-org-config.org::*Babel][Babel:6]]
+(setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
+;; Babel:6 ends here
 
 ;; Export
 ;; Do not inline CSS code when generating HTML exports. Instead, the CSS of the chosen theme will be used. This especially applies to fontified code blocks.

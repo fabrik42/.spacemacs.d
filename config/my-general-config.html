@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-01-07 Fri 21:16 -->
+<!-- 2022-03-09 Wed 15:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>General configuration</title>
@@ -229,38 +229,38 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org3d4acbb">1. General</a></li>
-<li><a href="#org1bc699d">2. Appearance</a></li>
-<li><a href="#orgde7fd0e">3. Major Mode Settings</a>
+<li><a href="#orgaf5c9cd">1. General</a></li>
+<li><a href="#org96f3178">2. Appearance</a></li>
+<li><a href="#org5966e5d">3. Major Mode Settings</a>
 <ul>
-<li><a href="#org1e24614">3.1. Magit</a></li>
-<li><a href="#org21cf3bb">3.2. LSP</a></li>
-<li><a href="#org74b7e9f">3.3. Ruby</a></li>
-<li><a href="#orgc0e41b3">3.4. Elixir</a></li>
-<li><a href="#orgc4414a6">3.5. Go</a></li>
-<li><a href="#orgedc2cd8">3.6. Web Mode</a></li>
-<li><a href="#org6b5a4fe">3.7. JavaScript</a></li>
-<li><a href="#org60cc55e">3.8. TypeScript</a></li>
-<li><a href="#orga7144c8">3.9. SQL</a></li>
+<li><a href="#orgb0a38f4">3.1. Magit</a></li>
+<li><a href="#org7137277">3.2. LSP</a></li>
+<li><a href="#org84f331c">3.3. Ruby</a></li>
+<li><a href="#org26e2e43">3.4. Elixir</a></li>
+<li><a href="#org7166f50">3.5. Go</a></li>
+<li><a href="#orgec487d7">3.6. Web Mode</a></li>
+<li><a href="#orgd631dbc">3.7. JavaScript</a></li>
+<li><a href="#org481ab2d">3.8. TypeScript</a></li>
+<li><a href="#org8bb4797">3.9. SQL</a></li>
 </ul>
 </li>
-<li><a href="#orge0ccb62">4. Keybindings</a>
+<li><a href="#orge8d2c64">4. Keybindings</a>
 <ul>
-<li><a href="#orgad6d99b">4.1. Movements</a></li>
-<li><a href="#orgd7c020a">4.2. Macros</a></li>
-<li><a href="#orge1d2800">4.3. Dired</a></li>
-<li><a href="#org3de8845">4.4. Umlauts</a></li>
-<li><a href="#orgbabee23">4.5. Misc</a></li>
+<li><a href="#orgcef4e7c">4.1. Movements</a></li>
+<li><a href="#orgde8935d">4.2. Macros</a></li>
+<li><a href="#orgabc87fa">4.3. Dired</a></li>
+<li><a href="#org14d283f">4.4. Umlauts</a></li>
+<li><a href="#orga397311">4.5. Misc</a></li>
 </ul>
 </li>
-<li><a href="#org6f64429">5. Emojis</a></li>
-<li><a href="#org085d947">6. Custom Functions</a>
+<li><a href="#orge3cd58d">5. Emojis</a></li>
+<li><a href="#orgf21f15d">6. Custom Functions</a>
 <ul>
-<li><a href="#org1b1f640">6.1. Switch between Rails i18n files</a></li>
-<li><a href="#org1ec9105">6.2. Exercism</a></li>
+<li><a href="#orgc5c7f86">6.1. Switch between Rails i18n files</a></li>
+<li><a href="#org7e45426">6.2. Exercism</a></li>
 </ul>
 </li>
-<li><a href="#orgb2a59e2">7. Finalization</a></li>
+<li><a href="#orgb60e721">7. Finalization</a></li>
 </ul>
 </div>
 </div>
@@ -268,9 +268,18 @@
 These are my settings that are called in <code>dotspacemacs/user-config</code>. This function is called at the very end of Spacemacs initialization after layers configuration.
 </p>
 
-<div id="outline-container-org3d4acbb" class="outline-2">
-<h2 id="org3d4acbb"><span class="section-number-2">1.</span> General</h2>
+<div id="outline-container-orgaf5c9cd" class="outline-2">
+<h2 id="orgaf5c9cd"><span class="section-number-2">1.</span> General</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+Setting the default directory to my user home.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> default-directory <span class="org-string">"~/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
 <p>
 Hitting TAB always just indents the current line.
 </p>
@@ -321,8 +330,8 @@ Enable <a href="https://github.com/dacap/keyfreq">key frequency</a> tracking
 </div>
 </div>
 </div>
-<div id="outline-container-org1bc699d" class="outline-2">
-<h2 id="org1bc699d"><span class="section-number-2">2.</span> Appearance</h2>
+<div id="outline-container-org96f3178" class="outline-2">
+<h2 id="org96f3178"><span class="section-number-2">2.</span> Appearance</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Clean up spaceline contents.
@@ -337,15 +346,19 @@ Clean up spaceline contents.
 </div>
 </div>
 
-<div id="outline-container-orgde7fd0e" class="outline-2">
-<h2 id="orgde7fd0e"><span class="section-number-2">3.</span> Major Mode Settings</h2>
+<div id="outline-container-org5966e5d" class="outline-2">
+<h2 id="org5966e5d"><span class="section-number-2">3.</span> Major Mode Settings</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org1e24614" class="outline-3">
-<h3 id="org1e24614"><span class="section-number-3">3.1.</span> Magit</h3>
+<div id="outline-container-orgb0a38f4" class="outline-3">
+<h3 id="orgb0a38f4"><span class="section-number-3">3.1.</span> Magit</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Add ioki-github.com to browsable URLs, therefore also create <a href="https://github.com/rmuslimov/browse-at-remote/blob/cef26f2c063f2473af42d0e126c8613fe2f709e4/browse-at-remote.el#L254-L264">custom formatters, based on the normal github formatter</a>.
+</p>
+
+<p>
+This allows to visit links via SPC g o
 </p>
 
 <div class="org-src-container">
@@ -382,11 +395,18 @@ Enable private Gitlab instance in magit forge
 <span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">with-eval-after-load</span> 'browse-at-remote
+  <span class="org-rainbow-delimiters-depth-2">(</span>add-to-list 'browse-at-remote-remote-type-regexps '<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"^gitlab\\.io\\.ki$"</span> . <span class="org-string">"gitlab"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
 </div>
 </div>
 
-<div id="outline-container-org21cf3bb" class="outline-3">
-<h3 id="org21cf3bb"><span class="section-number-3">3.2.</span> LSP</h3>
+<div id="outline-container-org7137277" class="outline-3">
+<h3 id="org7137277"><span class="section-number-3">3.2.</span> LSP</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Disable documentation overlays, use <code>, h h</code> instead.
@@ -406,8 +426,8 @@ Disable file watches, as many folders will slow Emacs down.
 </div>
 </div>
 </div>
-<div id="outline-container-org74b7e9f" class="outline-3">
-<h3 id="org74b7e9f"><span class="section-number-3">3.3.</span> Ruby</h3>
+<div id="outline-container-org84f331c" class="outline-3">
+<h3 id="org84f331c"><span class="section-number-3">3.3.</span> Ruby</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Don't automatically insert the magic encoding comment.
@@ -438,8 +458,8 @@ Underscore should be a word delimiter in slim.
 </div>
 </div>
 </div>
-<div id="outline-container-orgc0e41b3" class="outline-3">
-<h3 id="orgc0e41b3"><span class="section-number-3">3.4.</span> Elixir</h3>
+<div id="outline-container-org26e2e43" class="outline-3">
+<h3 id="org26e2e43"><span class="section-number-3">3.4.</span> Elixir</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 Call elixir-format before save.
@@ -483,8 +503,8 @@ Keybindings for <a href="https://github.com/ananthakumaran/exunit.el">Emacs ExUn
 </div>
 </div>
 </div>
-<div id="outline-container-orgc4414a6" class="outline-3">
-<h3 id="orgc4414a6"><span class="section-number-3">3.5.</span> Go</h3>
+<div id="outline-container-org7166f50" class="outline-3">
+<h3 id="org7166f50"><span class="section-number-3">3.5.</span> Go</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 Set tab width to 4.
@@ -516,8 +536,8 @@ Enable flycheck for Go mode.
 </div>
 </div>
 </div>
-<div id="outline-container-orgedc2cd8" class="outline-3">
-<h3 id="orgedc2cd8"><span class="section-number-3">3.6.</span> Web Mode</h3>
+<div id="outline-container-orgec487d7" class="outline-3">
+<h3 id="orgec487d7"><span class="section-number-3">3.6.</span> Web Mode</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 Intendation settings
@@ -536,8 +556,8 @@ Intendation settings
 </div>
 </div>
 </div>
-<div id="outline-container-org6b5a4fe" class="outline-3">
-<h3 id="org6b5a4fe"><span class="section-number-3">3.7.</span> JavaScript</h3>
+<div id="outline-container-orgd631dbc" class="outline-3">
+<h3 id="orgd631dbc"><span class="section-number-3">3.7.</span> JavaScript</h3>
 <div class="outline-text-3" id="text-3-7">
 <p>
 Allow <code>.dir-locals.el</code> files to set prettier-related settings.
@@ -564,8 +584,8 @@ Setup <a href="https://github.com/abicky/nodejs-repl.el">nodejs-repl.el</a> keyb
 </div>
 </div>
 </div>
-<div id="outline-container-org60cc55e" class="outline-3">
-<h3 id="org60cc55e"><span class="section-number-3">3.8.</span> TypeScript</h3>
+<div id="outline-container-org481ab2d" class="outline-3">
+<h3 id="org481ab2d"><span class="section-number-3">3.8.</span> TypeScript</h3>
 <div class="outline-text-3" id="text-3-8">
 <p>
 Set <a href="https://github.com/emacs-typescript/typescript.el/blob/master/typescript-mode.el#L635-L640">indentation level</a> to two spaces.
@@ -577,8 +597,8 @@ Set <a href="https://github.com/emacs-typescript/typescript.el/blob/master/types
 </div>
 </div>
 </div>
-<div id="outline-container-orga7144c8" class="outline-3">
-<h3 id="orga7144c8"><span class="section-number-3">3.9.</span> SQL</h3>
+<div id="outline-container-org8bb4797" class="outline-3">
+<h3 id="org8bb4797"><span class="section-number-3">3.9.</span> SQL</h3>
 <div class="outline-text-3" id="text-3-9">
 <p>
 The <code>sqlfmt</code> does not work very well with Postgres and is also outdated.
@@ -593,12 +613,12 @@ This uses <a href="https://github.com/darold/pgFormatter">pgFormatter</a> instea
 </div>
 </div>
 </div>
-<div id="outline-container-orge0ccb62" class="outline-2">
-<h2 id="orge0ccb62"><span class="section-number-2">4.</span> Keybindings</h2>
+<div id="outline-container-orge8d2c64" class="outline-2">
+<h2 id="orge8d2c64"><span class="section-number-2">4.</span> Keybindings</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orgad6d99b" class="outline-3">
-<h3 id="orgad6d99b"><span class="section-number-3">4.1.</span> Movements</h3>
+<div id="outline-container-orgcef4e7c" class="outline-3">
+<h3 id="orgcef4e7c"><span class="section-number-3">4.1.</span> Movements</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Make evil-mode up/down operate in screen lines instead of logical lines.
@@ -673,8 +693,8 @@ Type <code>g o &lt;char&gt; &lt;char&gt;</code> to get a fast home row friendly 
 </div>
 </div>
 </div>
-<div id="outline-container-orgd7c020a" class="outline-3">
-<h3 id="orgd7c020a"><span class="section-number-3">4.2.</span> Macros</h3>
+<div id="outline-container-orgde8935d" class="outline-3">
+<h3 id="orgde8935d"><span class="section-number-3">4.2.</span> Macros</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 Type <code>Q</code> to execute the macro recorded to <code>q.</code>
@@ -686,8 +706,8 @@ Type <code>Q</code> to execute the macro recorded to <code>q.</code>
 </div>
 </div>
 </div>
-<div id="outline-container-orge1d2800" class="outline-3">
-<h3 id="orge1d2800"><span class="section-number-3">4.3.</span> Dired</h3>
+<div id="outline-container-orgabc87fa" class="outline-3">
+<h3 id="orgabc87fa"><span class="section-number-3">4.3.</span> Dired</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 In <code>dired</code>, move to parent directory with <code>h</code> and open thing under cursor with <code>l</code>.
@@ -704,8 +724,8 @@ In <code>dired</code>, move to parent directory with <code>h</code> and open thi
 </div>
 </div>
 </div>
-<div id="outline-container-org3de8845" class="outline-3">
-<h3 id="org3de8845"><span class="section-number-3">4.4.</span> Umlauts</h3>
+<div id="outline-container-org14d283f" class="outline-3">
+<h3 id="org14d283f"><span class="section-number-3">4.4.</span> Umlauts</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 Make Umlauts work like in the rest of MacOS.
@@ -753,8 +773,8 @@ Make Umlauts work like in the rest of MacOS.
 </div>
 </div>
 </div>
-<div id="outline-container-orgbabee23" class="outline-3">
-<h3 id="orgbabee23"><span class="section-number-3">4.5.</span> Misc</h3>
+<div id="outline-container-orga397311" class="outline-3">
+<h3 id="orga397311"><span class="section-number-3">4.5.</span> Misc</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 Set hippie expand from M-/ to ctrl-space.
@@ -767,8 +787,8 @@ Set hippie expand from M-/ to ctrl-space.
 </div>
 </div>
 </div>
-<div id="outline-container-org6f64429" class="outline-2">
-<h2 id="org6f64429"><span class="section-number-2">5.</span> Emojis</h2>
+<div id="outline-container-orge3cd58d" class="outline-2">
+<h2 id="orge3cd58d"><span class="section-number-2">5.</span> Emojis</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Overwrite emoji settings.
@@ -793,15 +813,15 @@ Overwrite emoji settings.
 </div>
 </div>
 </div>
-<div id="outline-container-org085d947" class="outline-2">
-<h2 id="org085d947"><span class="section-number-2">6.</span> Custom Functions</h2>
+<div id="outline-container-orgf21f15d" class="outline-2">
+<h2 id="orgf21f15d"><span class="section-number-2">6.</span> Custom Functions</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Helper functions that I call directly with <code>SPC SPC</code>.
 </p>
 </div>
-<div id="outline-container-org1b1f640" class="outline-3">
-<h3 id="org1b1f640"><span class="section-number-3">6.1.</span> Switch between Rails i18n files</h3>
+<div id="outline-container-orgc5c7f86" class="outline-3">
+<h3 id="orgc5c7f86"><span class="section-number-3">6.1.</span> Switch between Rails i18n files</h3>
 <div class="outline-text-3" id="text-6-1">
 <p>
 This function switches between the German and the English translation file in a Rails project. Especially handy, if the project has a lot of files per language.
@@ -819,8 +839,8 @@ This function switches between the German and the English translation file in a 
 </div>
 </div>
 </div>
-<div id="outline-container-org1ec9105" class="outline-3">
-<h3 id="org1ec9105"><span class="section-number-3">6.2.</span> Exercism</h3>
+<div id="outline-container-org7e45426" class="outline-3">
+<h3 id="org7e45426"><span class="section-number-3">6.2.</span> Exercism</h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 Submits the current buffer to exercism and opens a temp buffer with the output and some additional information like the URL of the current practice.
@@ -853,8 +873,8 @@ Fix the result buffer to the bottom and allow to close it with <code>ctrl-g</cod
 </div>
 </div>
 </div>
-<div id="outline-container-orgb2a59e2" class="outline-2">
-<h2 id="orgb2a59e2"><span class="section-number-2">7.</span> Finalization</h2>
+<div id="outline-container-orgb60e721" class="outline-2">
+<h2 id="orgb60e721"><span class="section-number-2">7.</span> Finalization</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 In the end, satisfy the Spacemacs loading mechanism.
@@ -875,7 +895,7 @@ In the end, satisfy the Spacemacs loading mechanism.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Christian Bäuerlein</p>
-<p class="date">Created: 2022-01-07 Fri 21:16</p>
+<p class="date">Created: 2022-03-09 Wed 15:54</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

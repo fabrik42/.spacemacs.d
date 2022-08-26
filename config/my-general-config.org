@@ -7,6 +7,12 @@
 These are my settings that are called in =dotspacemacs/user-config=. This function is called at the very end of Spacemacs initialization after layers configuration.
 
 * General
+Setting the default directory to my user home.
+
+#+BEGIN_SRC emacs-lisp
+(setq default-directory "~/")
+#+END_SRC
+
 Hitting TAB always just indents the current line.
 
 #+BEGIN_SRC emacs-lisp
@@ -34,11 +40,11 @@ Enable line wrapping
 Enable [[https://github.com/dacap/keyfreq][key frequency]] tracking
 
 #+BEGIN_SRC emacs-lisp
-(setq truncate-lines nil)
-(keyfreq-mode 1)
-(keyfreq-autosave-mode 1)
-(setq keyfreq-excluded-commands
-      '(self-insert-command))
+;; (setq truncate-lines nil)
+;; (keyfreq-mode 1)
+;; (keyfreq-autosave-mode 1)
+;; (setq keyfreq-excluded-commands
+;;       '(self-insert-command))
 #+END_SRC
 * Appearance
 Clean up spaceline contents.
@@ -52,6 +58,8 @@ Clean up spaceline contents.
 * Major Mode Settings
 ** Magit
 Add ioki-github.com to browsable URLs, therefore also create [[https://github.com/rmuslimov/browse-at-remote/blob/cef26f2c063f2473af42d0e126c8613fe2f709e4/browse-at-remote.el#L254-L264][custom formatters, based on the normal github formatter]].
+
+This allows to visit links via SPC g o
 
 #+begin_src emacs-lisp
 (with-eval-after-load 'browse-at-remote
@@ -82,6 +90,12 @@ Enable private Gitlab instance in magit forge
 (with-eval-after-load 'forge
   (add-to-list 'forge-alist '("gitlab.io.ki" "gitlab.io.ki/api/v4" "gitlab.io.ki" forge-gitlab-repository))
 )
+#+end_src
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'browse-at-remote
+  (add-to-list 'browse-at-remote-remote-type-regexps '("^gitlab\\.io\\.ki$" . "gitlab"))
+  )
 #+end_src
 
 ** LSP
